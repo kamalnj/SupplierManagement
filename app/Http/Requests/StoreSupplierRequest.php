@@ -27,6 +27,7 @@ class StoreSupplierRequest extends FormRequest
             'adresse' => 'required|string|max:255',
             'contact' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:suppliers,email',
+            'categorie'=> 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
         ];
     }

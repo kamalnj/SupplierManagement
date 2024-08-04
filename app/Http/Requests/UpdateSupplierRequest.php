@@ -28,6 +28,7 @@ class UpdateSupplierRequest extends FormRequest
             'adresse' => 'nullable|string|max:255',
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255|unique:suppliers,email,' . $this->supplier->id,
+            'categorie' => 'nullable|string|max:255',
         ];
     }
 }

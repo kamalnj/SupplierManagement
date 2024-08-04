@@ -11,7 +11,7 @@ class Supplier extends Model
 
     // Specify the fillable fields
     protected $fillable = [
-        'nom', 'adresse', 'contact', 'email', 'password'
+        'nom', 'adresse', 'contact', 'email','categorie', 'password',
     ];
 
     /**

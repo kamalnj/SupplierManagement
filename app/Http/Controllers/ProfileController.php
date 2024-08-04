@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -60,4 +61,25 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function updateImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $user = $request->user();
+        $image = $request->file('image');
+        $path = $image->store('profile_images', 'public');
+    
+        // Optionally delete the old image if it exists
+        if ($user->image) {
+            Storage::disk('public')->delete($user->image);
+        }
+    
+        $user->image = $path;
+        $user->save();
+    
+        return redirect()->route('profile.edit')->with('status', 'Profile image updated successfully');
+    }
+    
 }

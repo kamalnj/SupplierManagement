@@ -16,14 +16,24 @@ class SupplierController extends Controller
      */
     public function index()
     {
-    // Fetch and paginate suppliers
-    $suppliers = Supplier::paginate(10)->onEachSide(1);
-
-    // Return the paginated data to the InertiaJS component
-    return Inertia::render('Supplier/Index', [
-        'suppliers' => SupplierResource::collection($suppliers),
-    ]);
+        $suppliers = Supplier::paginate(10)->onEachSide(1);
+        
+        $categories = Supplier::distinct('categorie')->pluck('categorie');
+        
+        // dd([
+        //     'suppliers' => $suppliers,
+        //     'categories' => $categories
+        // ]);
+    
+        // Return the paginated data and categories to the InertiaJS component
+        return Inertia::render('Supplier/Index', [
+            'suppliers' => SupplierResource::collection($suppliers),
+            'categories' => $categories, // Pass categories to the component
+        ]);
     }
+    
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -46,6 +56,8 @@ class SupplierController extends Controller
             'contact' => $request->contact,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'categorie' => $request->categorie,
+
         ]);
 
         // Redirect or return response as needed
