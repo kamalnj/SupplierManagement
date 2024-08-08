@@ -17,20 +17,17 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::paginate(10)->onEachSide(1);
-        
-        $categories = Supplier::distinct('categorie')->pluck('categorie');
-        
-        // dd([
-        //     'suppliers' => $suppliers,
-        //     'categories' => $categories
-        // ]);
     
-        // Return the paginated data and categories to the InertiaJS component
+        $categories = Supplier::distinct('categorie')->pluck('categorie');
+        $qualifications = Supplier::distinct('qualification')->pluck('qualification');
+    
         return Inertia::render('Supplier/Index', [
             'suppliers' => SupplierResource::collection($suppliers),
-            'categories' => $categories, // Pass categories to the component
+            'categories' => $categories,
+            'qualifications' => $qualifications,
         ]);
     }
+    
     
     
     

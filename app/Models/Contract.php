@@ -10,32 +10,33 @@ class Contract extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fournisseur_id ', // This is the foreign key for the supplier
-        'date_debut', // Start date of the contract
-        'date_fin', // End date of the contract
-        'conditions', // Terms of the contract
-        'statut', // Status of the contract
-        'nom_entreprise', // Company Name
-        'adresse_entreprise', // Company Address
-        'nom_representant', // Representative Name
-        'fonction_representant', // Representative Position
-        'nom_fournisseur', // Supplier Name
-        'adresse_fournisseur', // Supplier Address
-        'nom_representant_fournisseur', // Supplier Representative Name
-        'fonction_representant_fournisseur', // Supplier Representative Position
-        'description_produit_service', // Product/Service Description
-        'duree_contrat', // Contract Duration
-        'prix_annexe', // Annex Price
-        'conditions_paiement', // Payment Terms
-        'penalite_retard', // Late Penalty
-        'date_signature', // Signature Date
-        'lieu_signature', // Signature Place
-        'signature_entreprise', // Company Signature
-        'signature_fournisseur', // Supplier Signature
+        'fournisseur_id',
+        'date_debut',
+        'date_fin',
+        'conditions',
+        'statut',
+        'nom_entreprise',
+        'adresse_entreprise',
+        'nom_representant',
+        'fonction_representant',
+        'nom_fournisseur',
+        'adresse_fournisseur',
+        'nom_representant_fournisseur',
+        'fonction_representant_fournisseur',
+        'description_produit_service',
+        'duree_contrat',
+        'prix_annexe',
+        'conditions_paiement',
+        'penalite_retard',
+        'date_signature',
+        'lieu_signature',
+        'signature_entreprise',
+        'signature_fournisseur'
     ];
+
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'fournisseur_id');
     }
 }

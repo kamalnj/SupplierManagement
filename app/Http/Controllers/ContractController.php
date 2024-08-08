@@ -7,9 +7,16 @@ use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
 use App\Http\Resources\ContractResource;
 use App\Models\Supplier;
+use Illuminate\Http\Request; // Import the Request class
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Inertia\Inertia;
+use App\Events\ContractCreated; // Import the event class
+use App\Events\ContractDeleted;
+use Illuminate\Support\Facades\Log;
+
+
+
 
 class ContractController extends Controller
 {
@@ -18,9 +25,8 @@ class ContractController extends Controller
      */
     public function index()
     {
-        $contracts = Contract::paginate(10)->onEachSide(1);
+        $contracts = Contract::with('supplier')->paginate(10);
 
-        $contracts = Contract::with('supplier')->get();
         return Inertia::render('Contract/Index', [
             'contracts' => ContractResource::collection($contracts),
         ]);
@@ -29,10 +35,19 @@ class ContractController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        // Fetch all suppliers
         $suppliers = Supplier::all();
-        return inertia('Contract/Create', compact('suppliers'));
+        
+        // Optionally fetch specific supplier details if fournisseur_id is provided
+        $fournisseurId = $request->query('fournisseur_id');
+        $fournisseur = $fournisseurId ? Supplier::find($fournisseurId) : null;
+
+        return inertia('Contract/Create', [
+            'suppliers' => $suppliers,
+            'fournisseur' => $fournisseur,
+        ]);
     }
 
     /**
@@ -40,23 +55,27 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
-        // Validate the data
+
+        // Validate and create the contract
         $validated = $request->validated();
 
-        // Create the contract
+        $validated['statut'] = 'Inactive';
+
+
         $contract = Contract::create($validated);
 
-        // Generate the PDF
+        $contract->load('supplier');
+
+
+        // Generate and store the PDF
         $pdf = Pdf::loadView('contrat.pdf', ['contract' => $contract]);
-
-        // Ensure the storage directory exists
-        $directory = 'public/contrats';
-        if (!Storage::exists($directory)) {
-            Storage::makeDirectory($directory);
-        }
-
-        $pdfPath = $directory . '/' . $contract->id . '.pdf';
+        $directory = 'contrats/';
+      
+        $pdfPath = $directory . '/' . $contract->nom_fournisseur . '.pdf';
         Storage::put($pdfPath, $pdf->output());
+
+        event(new ContractCreated($contract));
+
 
         return redirect()->route('contract.index')->with('success', 'Contract created successfully and PDF generated.');
     }
@@ -69,6 +88,7 @@ class ContractController extends Controller
         $contract->load('supplier');
         return inertia('Contract/Show', compact('contract'));
     }
+
     public function showPdf(Contract $contract)
     {
         $contract->load('supplier');
@@ -77,20 +97,30 @@ class ContractController extends Controller
         $pdf = Pdf::loadView('contrat.pdf', ['contract' => $contract]);
     
         // Create the filename with contract ID
-        $filename = 'contract_' . $contract->nom_fournisseur. '.pdf';
+        $filename = 'contract_' . $contract->nom_fournisseur . '.pdf';
     
-        // Download the PDF with the generated filename
-        return $pdf->download($filename);
+        // Define the folder path
+        $folderPath = 'contrats/'; // Path relative to public/storage
+    
+        // Store the PDF in the defined folder
+        $pdfPath = $folderPath . $filename;
+        Storage::disk('public')->put($pdfPath, $pdf->output());
+    
+        // Return the PDF as a download response
+        return response()->download(storage_path('app/public/' . $pdfPath));
     }
-    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Contract $contract)
     {
+        // Load suppliers and pass contract details
         $suppliers = Supplier::all();
-        return inertia('Contract/Edit', compact('contract', 'suppliers'));
+        return inertia('Contract/Edit', [
+            'contract' => $contract,
+            'suppliers' => $suppliers,
+        ]);
     }
 
     /**
@@ -98,25 +128,21 @@ class ContractController extends Controller
      */
     public function update(UpdateContractRequest $request, Contract $contract)
     {
-        // Validate the data
+        // Validate and update the contract
         $validated = $request->validated();
-    
-        // Update the contract
         $contract->update($validated);
     
         // Regenerate the PDF
-        $pdf = Pdf::loadView('Contrat.pdf', ['contract' => $contract]);
+        $pdf = Pdf::loadView('contrat.pdf', ['contract' => $contract]);
+        $directory = 'contrats/';
+       
+        $pdfPath = $directory . 'Modifiée_' . $contract->nom_fournisseur . '.pdf';
     
-        // Ensure the directory exists
-        $directory = 'public/contrats';
-        if (!Storage::exists($directory)) {
-            Storage::makeDirectory($directory);
-        }
+        // Store the PDF
+        Storage::disk('public')->put($pdfPath, $pdf->output());
     
-        $pdfPath = $directory . '/' . $contract->id . '.pdf';
-        Storage::put($pdfPath, $pdf->output());
-    
-        return redirect()->route('contract.index')->with('success', 'Contract updated successfully and PDF regenerated.');
+        // Provide the path to the stored file for downloading
+        return response()->download(storage_path('app/public/' . $pdfPath));
     }
     
 
@@ -125,15 +151,28 @@ class ContractController extends Controller
      */
     public function destroy(Contract $contract)
     {
-        // Delete the contract PDF if it exists
-        $pdfPath = 'public/contracts/' . $contract->id . '.pdf';
+        $pdfPath = 'public/contrats/' . $contract->id . '.pdf';
         if (Storage::exists($pdfPath)) {
             Storage::delete($pdfPath);
         }
-
-        // Delete the contract
+    
+        // Supprimer le contrat
         $contract->delete();
-
+    
+        // Mettre à jour le statut du fournisseur si nécessaire
+        $supplier = $contract->supplier;
+    
+        if ($supplier) {
+            // Vérifier si le fournisseur a encore d'autres contrats
+            $hasContracts = Contract::where('fournisseur_id', $supplier->id)->exists();
+    
+            if (!$hasContracts) {
+                $supplier->contrat = 'non';
+                $supplier->save();
+            }
+        }
+    
         return redirect()->route('contract.index')->with('success', 'Contract deleted successfully.');
     }
+    
 }

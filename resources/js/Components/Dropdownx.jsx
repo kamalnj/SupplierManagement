@@ -4,7 +4,7 @@ import { Transition } from '@headlessui/react';
 
 const DropDownContext = createContext();
 
-const Dropdown = ({ children }) => {
+const Dropdownx = ({ children }) => {
     const [open, setOpen] = useState(false);
 
     const toggleOpen = () => {
@@ -30,7 +30,7 @@ const Trigger = ({ children }) => {
     );
 };
 
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white dark:bg-gray-700', children }) => {
+const Content = ({ align = 'left', width = '64', contentClasses = 'py-1 bg-white dark:bg-gray-700', children }) => {
     const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
@@ -43,9 +43,10 @@ const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-whit
 
     let widthClasses = '';
 
-    if (width === '48') {
-        widthClasses = 'w-48';
+    if (width === '64') {
+        widthClasses = 'w-64';
     }
+    
 
     return (
         <>
@@ -84,8 +85,8 @@ const DropdownLink = ({ className = '', children, ...props }) => {
     );
 };
 
-Dropdown.Trigger = Trigger;
-Dropdown.Content = Content;
-Dropdown.Link = DropdownLink;
+Dropdownx.Trigger = Trigger;
+Dropdownx.Content = Content;
+Dropdownx.Link = DropdownLink;
 
-export default Dropdown;
+export default Dropdownx;

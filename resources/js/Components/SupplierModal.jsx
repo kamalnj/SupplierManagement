@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
@@ -9,6 +9,7 @@ const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
         email: "",
         categorie: "",
     });
+
     useEffect(() => {
         if (supplier) {
             setData({
@@ -20,7 +21,6 @@ const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
             });
         }
     }, [supplier]);
-    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -62,6 +62,39 @@ const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
                         <p className="text-gray-600 dark:text-gray-400 mb-2">
                             Categorie: {supplier.categorie}
                         </p>
+                        <div className="flex justify-start mb-4">
+    {supplier.contrat === 'non' ? (
+        <button
+            type="button"
+            className="bg-green-600 text-black hover:bg-green-400 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 rounded-lg px-4 py-2"
+            onClick={() => {
+                const fournisseurId = supplier.id; // Replace with actual fournisseur_id
+                const nom = supplier.nom; // Replace with actual nom
+                const adresse = supplier.adresse; // Replace with actual adresse
+
+                const url = new URL(
+                    route("contract.create"),
+                    window.location.origin
+                );
+                url.searchParams.append("fournisseur_id", fournisseurId);
+                url.searchParams.append("nom", encodeURIComponent(nom));
+                url.searchParams.append("adresse", encodeURIComponent(adresse));
+
+                window.location.href = url.toString();
+            }}
+        >
+            Créer un contrat
+            </button>
+    ) : (
+        <button
+            type="button"
+            className="bg-gray-600 cursor-not-allowed text-white hover:bg-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 rounded-lg px-4 py-2"
+        >
+            Contrat déjà crée 
+        </button>
+    )}
+</div>
+
                         <div className="flex justify-end">
                             <button
                                 type="button"
@@ -74,115 +107,37 @@ const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="nom"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                            >
-                                Nom
-                            </label>
-                            <input
-                                type="text"
-                                id="nom"
-                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
-                                value={data.nom}
-                                onChange={(e) => setData("nom", e.target.value)}
-                            />
-                            {errors.nom && (
-                                <div className="text-red-600 mt-1">
-                                    {errors.nom}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="adresse"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                            >
-                                Adresse
-                            </label>
-                            <input
-                                type="text"
-                                id="adresse"
-                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
-                                value={data.adresse}
-                                onChange={(e) =>
-                                    setData("adresse", e.target.value)
-                                }
-                            />
-                            {errors.adresse && (
-                                <div className="text-red-600 mt-1">
-                                    {errors.adresse}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="contact"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                            >
-                                Contact
-                            </label>
-                            <input
-                                type="text"
-                                id="contact"
-                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
-                                value={data.contact}
-                                onChange={(e) =>
-                                    setData("contact", e.target.value)
-                                }
-                            />
-                            {errors.contact && (
-                                <div className="text-red-600 mt-1">
-                                    {errors.contact}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                            >
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
-                                value={data.email}
-                                onChange={(e) =>
-                                    setData("email", e.target.value)
-                                }
-                            />
-                            {errors.email && (
-                                <div className="text-red-600 mt-1">
-                                    {errors.email}
-                                </div>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label
-                                htmlFor="categorie"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                            >
-                                Categorie
-                            </label>
-                            <input
-                                type="text"
-                                id="categorie"
-                                className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
-                                value={data.categorie}
-                                onChange={(e) =>
-                                    setData("categorie", e.target.value)
-                                }
-                            />
-
-                            {errors.categorie && (
-                                <div className="text-red-600 mt-1">
-                                    {errors.categorie}
-                                </div>
-                            )}
-                        </div>
+                        {[
+                            "nom",
+                            "adresse",
+                            "contact",
+                            "email",
+                            "categorie",
+                        ].map((field) => (
+                            <div className="mb-4" key={field}>
+                                <label
+                                    htmlFor={field}
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-400"
+                                >
+                                    {field.charAt(0).toUpperCase() +
+                                        field.slice(1)}
+                                </label>
+                                <input
+                                    type={field === "email" ? "email" : "text"}
+                                    id={field}
+                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 rounded-md shadow-sm dark:bg-gray-800 dark:text-gray-300"
+                                    value={data[field]}
+                                    onChange={(e) =>
+                                        setData(field, e.target.value)
+                                    }
+                                />
+                                {errors[field] && (
+                                    <div className="text-red-600 mt-1">
+                                        {errors[field]}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
                         <div className="flex justify-end">
                             <button
                                 type="button"

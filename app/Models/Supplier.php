@@ -11,7 +11,24 @@ class Supplier extends Model
 
     // Specify the fillable fields
     protected $fillable = [
-        'nom', 'adresse', 'contact', 'email','categorie', 'password',
+        'nom', 'adresse', 'contact', 'email', 'categorie', 'contrat', 'password','qualification',
+    ];
+
+    // Define the possible values for contrat
+    const CONTRAT_OUI = 'Oui';
+    const CONTRAT_NON = 'Non';
+
+    // Optionally, you can create a helper method to get the available options
+    public static function getContratOptions()
+    {
+        return [
+            self::CONTRAT_OUI,
+            self::CONTRAT_NON,
+        ];
+    }
+
+    protected $attributes = [
+        'contrat' => self::CONTRAT_NON,
     ];
 
     /**
@@ -19,6 +36,11 @@ class Supplier extends Model
      */
     public function contracts()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class, 'fournisseur_id');
     }
+    public function evaluations()
+{
+    return $this->hasMany(SupplierEvaluation::class);
+}
+
 }

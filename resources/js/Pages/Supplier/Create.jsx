@@ -11,7 +11,7 @@ const Create = ({ auth }) => {
         email: '',
         password: '',
         password_confirmation: '',
-        categorie:'',
+        categorie:'',   
     });
 
 

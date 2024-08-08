@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Supplier;
 
 class StoreSupplierRequest extends FormRequest
 {
@@ -28,7 +29,10 @@ class StoreSupplierRequest extends FormRequest
             'contact' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:suppliers,email',
             'categorie'=> 'required|string|max:255',
+            'qualification'=> 'required|string|max:255',
+            'contrat' => 'nullable|string|in:' . implode(',', Supplier::getContratOptions()), // Make contrat nullable
             'password' => 'required|string|min:8|confirmed',
         ];
     }
 }
+

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('conditions');
-            $table->string('statut');
+            $table->string('statut')->default('Inactive')->change();
             $table->timestamps();
         });
     }

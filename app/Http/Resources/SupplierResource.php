@@ -20,7 +20,9 @@ class SupplierResource extends JsonResource
             'adresse' => $this->adresse,
             'contact' => $this->contact,
             'email' => $this->email,
-            'categorie' => $this->categorie, // Ensure this line is present
+            'contrat' => $this->contrat,
+            'qualification'=>$this->qualification,
+            'categorie' => $this->categorie,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }

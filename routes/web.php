@@ -4,6 +4,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SupplierEvaluationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route; 
 use Inertia\Inertia;
@@ -19,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/contracts/{contract}/download', [ContractController::class, 'showPdf'])->name('contracts.download');
     Route::resource('user',UserController::class);
     Route::resource('document',DocumentController::class);
+    Route::resource('supplierEvaluation',SupplierEvaluationController::class);
+
 });
 
 

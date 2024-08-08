@@ -74,7 +74,7 @@ const ContractModal = ({ isOpen, onClose, contract, mode }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-gray-900 bg-opacity-50">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full mt-auto max-w-lg mx-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full  max-w-lg mx-auto">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                     {mode === 'edit' ? 'Modifier le contrat' : 'Détails d\'un contrat'}
                 </h2>
@@ -112,18 +112,7 @@ const ContractModal = ({ isOpen, onClose, contract, mode }) => {
                 ) : (
                     <form onSubmit={handleSubmit}>
                         <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-                            <div>
-                                <label htmlFor="fournisseur_id" className="block text-sm font-medium text-gray-700">ID Fournisseur</label>
-                                <input
-                                    type="text"
-                                    id="fournisseur_id"
-                                    name="fournisseur_id"
-                                    value={data.fournisseur_id}
-                                    onChange={(e) => setData('fournisseur_id', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.fournisseur_id && <p className="mt-2 text-sm text-red-600">{errors.fournisseur_id}</p>}
-                            </div>
+                
                             <div>
                                 <label htmlFor="date_debut" className="block text-sm font-medium text-gray-700">Date de Début</label>
                                 <input
@@ -159,125 +148,8 @@ const ContractModal = ({ isOpen, onClose, contract, mode }) => {
                                 />
                                 {errors.conditions && <p className="mt-2 text-sm text-red-600">{errors.conditions}</p>}
                             </div>
-                            <div>
-                                <label htmlFor="statut" className="block text-sm font-medium text-gray-700">Statut</label>
-                                <input
-                                    type="text"
-                                    id="statut"
-                                    name="statut"
-                                    value={data.statut}
-                                    onChange={(e) => setData('statut', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.statut && <p className="mt-2 text-sm text-red-600">{errors.statut}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="nom_entreprise" className="block text-sm font-medium text-gray-700">Nom de l'Entreprise</label>
-                                <input
-                                    type="text"
-                                    id="nom_entreprise"
-                                    name="nom_entreprise"
-                                    value={data.nom_entreprise}
-                                    onChange={(e) => setData('nom_entreprise', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.nom_entreprise && <p className="mt-2 text-sm text-red-600">{errors.nom_entreprise}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="adresse_entreprise" className="block text-sm font-medium text-gray-700">Adresse de l'Entreprise</label>
-                                <input
-                                    type="text"
-                                    id="adresse_entreprise"
-                                    name="adresse_entreprise"
-                                    value={data.adresse_entreprise}
-                                    onChange={(e) => setData('adresse_entreprise', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.adresse_entreprise && <p className="mt-2 text-sm text-red-600">{errors.adresse_entreprise}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="nom_representant" className="block text-sm font-medium text-gray-700">Nom du Représentant</label>
-                                <input
-                                    type="text"
-                                    id="nom_representant"
-                                    name="nom_representant"
-                                    value={data.nom_representant}
-                                    onChange={(e) => setData('nom_representant', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.nom_representant && <p className="mt-2 text-sm text-red-600">{errors.nom_representant}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="fonction_representant" className="block text-sm font-medium text-gray-700">Fonction du Représentant</label>
-                                <input
-                                    type="text"
-                                    id="fonction_representant"
-                                    name="fonction_representant"
-                                    value={data.fonction_representant}
-                                    onChange={(e) => setData('fonction_representant', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.fonction_representant && <p className="mt-2 text-sm text-red-600">{errors.fonction_representant}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="nom_fournisseur" className="block text-sm font-medium text-gray-700">Nom du Fournisseur</label>
-                                <input
-                                    type="text"
-                                    id="nom_fournisseur"
-                                    name="nom_fournisseur"
-                                    value={data.nom_fournisseur}
-                                    onChange={(e) => setData('nom_fournisseur', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.nom_fournisseur && <p className="mt-2 text-sm text-red-600">{errors.nom_fournisseur}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="adresse_fournisseur" className="block text-sm font-medium text-gray-700">Adresse du Fournisseur</label>
-                                <input
-                                    type="text"
-                                    id="adresse_fournisseur"
-                                    name="adresse_fournisseur"
-                                    value={data.adresse_fournisseur}
-                                    onChange={(e) => setData('adresse_fournisseur', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.adresse_fournisseur && <p className="mt-2 text-sm text-red-600">{errors.adresse_fournisseur}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="nom_representant_fournisseur" className="block text-sm font-medium text-gray-700">Nom du Représentant du Fournisseur</label>
-                                <input
-                                    type="text"
-                                    id="nom_representant_fournisseur"
-                                    name="nom_representant_fournisseur"
-                                    value={data.nom_representant_fournisseur}
-                                    onChange={(e) => setData('nom_representant_fournisseur', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.nom_representant_fournisseur && <p className="mt-2 text-sm text-red-600">{errors.nom_representant_fournisseur}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="fonction_representant_fournisseur" className="block text-sm font-medium text-gray-700">Fonction du Représentant du Fournisseur</label>
-                                <input
-                                    type="text"
-                                    id="fonction_representant_fournisseur"
-                                    name="fonction_representant_fournisseur"
-                                    value={data.fonction_representant_fournisseur}
-                                    onChange={(e) => setData('fonction_representant_fournisseur', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.fonction_representant_fournisseur && <p className="mt-2 text-sm text-red-600">{errors.fonction_representant_fournisseur}</p>}
-                            </div>
-                            <div>
-                                <label htmlFor="description_produit_service" className="block text-sm font-medium text-gray-700">Description du Produit/Service</label>
-                                <textarea
-                                    id="description_produit_service"
-                                    name="description_produit_service"
-                                    value={data.description_produit_service}
-                                    onChange={(e) => setData('description_produit_service', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.description_produit_service && <p className="mt-2 text-sm text-red-600">{errors.description_produit_service}</p>}
-                            </div>
+                      
+                           
                             <div>
                                 <label htmlFor="duree_contrat" className="block text-sm font-medium text-gray-700">Durée du Contrat</label>
                                 <input
@@ -325,17 +197,7 @@ const ContractModal = ({ isOpen, onClose, contract, mode }) => {
                                 />
                                 {errors.penalite_retard && <p className="mt-2 text-sm text-red-600">{errors.penalite_retard}</p>}
                             </div>
-                            <div>
-                                <label htmlFor="clause_resiliation" className="block text-sm font-medium text-gray-700">Clause de Résiliation</label>
-                                <textarea
-                                    id="clause_resiliation"
-                                    name="clause_resiliation"
-                                    value={data.clause_resiliation}
-                                    onChange={(e) => setData('clause_resiliation', e.target.value)}
-                                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                />
-                                {errors.clause_resiliation && <p className="mt-2 text-sm text-red-600">{errors.clause_resiliation}</p>}
-                            </div>
+                     
                             <div className="flex justify-end">
                             <button
                                 type="button"

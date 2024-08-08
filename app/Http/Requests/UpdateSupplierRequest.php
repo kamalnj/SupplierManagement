@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Supplier;
 
 class UpdateSupplierRequest extends FormRequest
 {
@@ -29,6 +30,7 @@ class UpdateSupplierRequest extends FormRequest
             'contact' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255|unique:suppliers,email,' . $this->supplier->id,
             'categorie' => 'nullable|string|max:255',
+            'contrat' => 'required|string|in:' . implode(',', Supplier::getContratOptions()),
         ];
     }
 }
