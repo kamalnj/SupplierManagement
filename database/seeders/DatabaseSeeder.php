@@ -15,33 +15,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(1)->create();
+        User::factory(2)->create();
         
-        // supplier::factory()->count(3)->create(); // Generates 50 fake fournisseurs
-        Contract::create([
-            'fournisseur_id' => 1,
-            'date_debut' => '1989-08-28',
-            'date_fin' => '2009-04-06',
-            'conditions' => 'Perspiciatis dolor molestias similique veniam impedit ex consequatur repellendus.',
-            'statut' => 'actif',
-            'nom_entreprise' => 'Medhurst-Pacocha',
-            'adresse_entreprise' => '5754 Graham Ville, Baileyport, TX 80146',
-            'nom_representant' => 'Anna Spencer',
-            'fonction_representant' => 'Computer Science Teacher',
-            'nom_fournisseur' => 'O\'Reilly, Kutch and Schneider',
-            'adresse_fournisseur' => '7515 Luisa Circle, Grahamburgh, WI 08136-1978',
-            'nom_representant_fournisseur' => 'Kristina Upton',
-            'fonction_representant_fournisseur' => 'Bookkeeper',
-            'description_produit_service' => 'Eaque quo omnis sit sit sint cum.',
-            'duree_contrat' => 'qui',
-            'prix_annexe' => 5341.27,
-            'conditions_paiement' => 'Ea libero ut sed quaerat magnam.',
-            'penalite_retard' => 660.47,
-            'date_signature' => '2010-02-11',
-            'lieu_signature' => 'South Gretastad',
-            'signature_entreprise' => 'Rebeka Macejkovic',
-            'signature_fournisseur' => 'Dariana Stroman III',
-        ]);
+        supplier::factory()->count(10)->create(); // Generates 50 fake fournisseurs
+        // Contract::create([
+        //     'fournisseur_id' => 1,
+        //     'date_debut' => '1989-08-28',
+        //     'date_fin' => '2009-04-06',
+        //     'conditions' => 'Perspiciatis dolor molestias similique veniam impedit ex consequatur repellendus.',
+        //     'statut' => 'actif',
+        //     'nom_entreprise' => 'Medhurst-Pacocha',
+        //     'adresse_entreprise' => '5754 Graham Ville, Baileyport, TX 80146',
+        //     'nom_representant' => 'Anna Spencer',
+        //     'fonction_representant' => 'Computer Science Teacher',
+        //     'nom_fournisseur' => 'O\'Reilly, Kutch and Schneider',
+        //     'adresse_fournisseur' => '7515 Luisa Circle, Grahamburgh, WI 08136-1978',
+        //     'nom_representant_fournisseur' => 'Kristina Upton',
+        //     'fonction_representant_fournisseur' => 'Bookkeeper',
+        //     'description_produit_service' => 'Eaque quo omnis sit sit sint cum.',
+        //     'duree_contrat' => 'qui',
+        //     'prix_annexe' => 5341.27,
+        //     'conditions_paiement' => 'Ea libero ut sed quaerat magnam.',
+        //     'penalite_retard' => 660.47,
+        //     'date_signature' => '2010-02-11',
+        //     'lieu_signature' => 'South Gretastad',
+        //     'signature_entreprise' => 'Rebeka Macejkovic',
+        //     'signature_fournisseur' => 'Dariana Stroman III',
+        // ]);
 
         
     }

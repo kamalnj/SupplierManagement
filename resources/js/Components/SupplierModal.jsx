@@ -63,7 +63,7 @@ const SupplierModal = ({ isOpen, onClose, supplier, mode }) => {
                             Categorie: {supplier.categorie}
                         </p>
                         <div className="flex justify-start mb-4">
-    {supplier.contrat === 'non' ? (
+    {supplier.contrat === 'Non' ? (
         <button
             type="button"
             className="bg-green-600 text-black hover:bg-green-400 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 rounded-lg px-4 py-2"

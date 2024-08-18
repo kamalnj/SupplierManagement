@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Http\Resources\SupplierResource;
+use App\Mail\SupplierRegistrationMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Illuminate\Support\Str; // Import Str for random password
 
 class SupplierController extends Controller
 {
@@ -46,21 +50,36 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
+        // Validate and sanitize the request
+        $validatedData = $request->validated(); // Assuming you are using form request validation
+    
+        // Generate a random password
+        $password = Str::random(8);
+    
         // Create the supplier
         $supplier = Supplier::create([
-            'nom' => $request->nom,
-            'adresse' => $request->adresse,
-            'contact' => $request->contact,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'categorie' => $request->categorie,
-
+            'nom' => $validatedData['nom'],
+            'adresse' => $validatedData['adresse'],
+            'contact' => $validatedData['contact'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($password), // Hash the password
+            'categorie' => $validatedData['categorie'],
         ]);
-
+    
+        // Create the user
+        $user = User::create([
+            'name' => $supplier->nom,
+            'email' => $validatedData['email'],
+            'password' => Hash::make($password), // Hash the same password
+            'role' => 'supplier', // Assuming you have a role column in the users table
+        ]);
+    
+        // Send email to the supplier with login details
+        Mail::to($validatedData['email'])->send(new SupplierRegistrationMail($password, $validatedData['email']));
+    
         // Redirect or return response as needed
         return redirect()->route('supplier.index')->with('success', 'Le fournisseur a été créé avec succès.');
     }
-
     /**
      * Display the specified resource.
      */

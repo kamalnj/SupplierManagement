@@ -33,7 +33,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $LoggedInUserRole = $request->user()->usertype;
+
+        if($LoggedInUserRole == 'user'){
+
+        return redirect()->intended(route('supplier.dashboard', absolute: false));}
+
         return redirect()->intended(route('dashboard', absolute: false));
+
     }
 
     /**

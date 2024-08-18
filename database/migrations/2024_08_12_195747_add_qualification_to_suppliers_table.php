@@ -9,18 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('suppliers', function (Blueprint $table) {
-            $table->string('contrat')->default('Non');
+            $table->string('qualification')->nullable(); // Adjust type and attributes as needed
         });
     }
-    
-    public function down()
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('suppliers', function (Blueprint $table) {
-            $table->dropColumn('contrat');
+            $table->dropColumn('qualification');
         });
     }
-    
 };
