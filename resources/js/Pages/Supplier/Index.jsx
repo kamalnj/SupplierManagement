@@ -6,7 +6,7 @@ import SupplierModal from "@/Components/SupplierModal";
 import ContractModal from "@/Components/ContractModal";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-const Index = ({ auth, suppliers, categories, qualifications }) => {
+const Index = ({ auth, suppliers, categories }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isContractModalOpen, setContractModalOpen] = useState(false);
@@ -14,7 +14,6 @@ const Index = ({ auth, suppliers, categories, qualifications }) => {
   const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [supplierIdToDelete, setSupplierIdToDelete] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedQualification, setSelectedQualification] = useState(""); 
   const { delete: deleteSupplier } = useForm();
 
   const openDialog = (supplierId) => {
@@ -51,9 +50,6 @@ const Index = ({ auth, suppliers, categories, qualifications }) => {
     setSelectedCategory(e.target.value);
   };
 
-  const handleQualificationChange = (e) => {
-    setSelectedQualification(e.target.value);
-  };
 
   return (
     <AuthenticatedLayout
@@ -90,22 +86,7 @@ const Index = ({ auth, suppliers, categories, qualifications }) => {
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label htmlFor="qualification-filter" className="sr-only">Qualification</label>
-                    <select
-                      id="qualification-filter"
-                      className="bg-gray-50 border w-56 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={selectedQualification}
-                      onChange={handleQualificationChange}
-                    >
-                      <option value="">Tous les Qualifications</option>
-                      {qualifications.map((qualification, index) => (
-                        <option key={index} value={qualification}>
-                          {qualification}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+            
                 </form>
               </div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
@@ -135,8 +116,8 @@ const Index = ({ auth, suppliers, categories, qualifications }) => {
                 <tbody>
                   {suppliers.data
                     .filter(supplier => 
-                      (!selectedCategory || supplier.categorie === selectedCategory) && 
-                      (!selectedQualification || supplier.qualification === selectedQualification)
+                      (!selectedCategory || supplier.categorie === selectedCategory) 
+                      
                     )
                     .map(supplier => (
                       <tr
@@ -189,10 +170,16 @@ const Index = ({ auth, suppliers, categories, qualifications }) => {
 
       <Pagination links={suppliers.meta.links} />
       <ConfirmationDialog
-        isOpen={isDialogOpen}
-        onClose={closeDialog}
-        onConfirm={handleConfirmDelete}
-      />
+                isOpen={isDialogOpen}
+                onClose={() => setDialogOpen(false)}
+                title="Supprimer Fournisseur"
+                description="Êtes-vous sûr de vouloir supprimer ce fournisseur ? Cette action est irréversible."
+                confirmText="Supprimer"
+                cancelText="Annuler"
+            
+                onConfirm={handleConfirmDelete}
+            />
+      
       <SupplierModal
         isOpen={isModalOpen}
         onClose={closeModal}

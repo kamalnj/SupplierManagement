@@ -9,16 +9,13 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    // Specify the fillable fields
     protected $fillable = [
-        'nom', 'adresse', 'contact', 'email', 'categorie', 'contrat', 'password','qualification',
+        'user_id', 'nom', 'adresse', 'contact', 'email', 'categorie', 'contrat', 'password', 'qualification',
     ];
 
-    // Define the possible values for contrat
     const CONTRAT_OUI = 'Oui';
     const CONTRAT_NON = 'Non';
 
-    // Optionally, you can create a helper method to get the available options
     public static function getContratOptions()
     {
         return [
@@ -31,16 +28,27 @@ class Supplier extends Model
         'contrat' => self::CONTRAT_NON,
     ];
 
-    /**
-     * Get the contracts for the supplier.
-     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function contracts()
     {
         return $this->hasMany(Contract::class, 'fournisseur_id');
     }
-    public function evaluations()
-{
-    return $this->hasMany(SupplierEvaluation::class);
-}
 
+    public function evaluations()
+    {
+        return $this->hasMany(ResultatsEvaluation::class);
+    }
+
+    public function campagnes()
+    {
+        return $this->belongsToMany(Campagnes::class, 'fournisseurs_campagnes', 'supplier_id', 'campagne_id');
+    }
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'fournisseur_id');
+    }
 }

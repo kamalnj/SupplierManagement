@@ -39,4 +39,6 @@ class Contract extends Model
     {
         return $this->belongsTo(Supplier::class, 'fournisseur_id');
     }
+
+ 
 }

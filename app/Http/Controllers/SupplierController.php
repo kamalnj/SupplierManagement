@@ -51,13 +51,22 @@ class SupplierController extends Controller
     public function store(StoreSupplierRequest $request)
     {
         // Validate and sanitize the request
-        $validatedData = $request->validated(); // Assuming you are using form request validation
+        $validatedData = $request->validated();
     
         // Generate a random password
         $password = Str::random(8);
     
-        // Create the supplier
+        // Create the user first
+        $user = User::create([
+            'name' => $validatedData['nom'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($password),
+            'role' => 'supplier',
+        ]);
+    
+        // Create the supplier with the created user ID
         $supplier = Supplier::create([
+            'user_id' => $user->id, // Assign the created user ID
             'nom' => $validatedData['nom'],
             'adresse' => $validatedData['adresse'],
             'contact' => $validatedData['contact'],
@@ -66,20 +75,13 @@ class SupplierController extends Controller
             'categorie' => $validatedData['categorie'],
         ]);
     
-        // Create the user
-        $user = User::create([
-            'name' => $supplier->nom,
-            'email' => $validatedData['email'],
-            'password' => Hash::make($password), // Hash the same password
-            'role' => 'supplier', // Assuming you have a role column in the users table
-        ]);
-    
         // Send email to the supplier with login details
         Mail::to($validatedData['email'])->send(new SupplierRegistrationMail($password, $validatedData['email']));
     
         // Redirect or return response as needed
         return redirect()->route('supplier.index')->with('success', 'Le fournisseur a été créé avec succès.');
     }
+    
     /**
      * Display the specified resource.
      */

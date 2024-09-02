@@ -13,9 +13,8 @@ class Critere extends Model
 
     protected $fillable = ['name', 'description'];
 
-    // Example relationship: If Critere has many SupplierEvaluations
     public function supplierEvaluations()
     {
-        return $this->hasMany(SupplierEvaluation::class, 'critere_id');
+        return $this->hasMany(ResultatsEvaluation::class, 'critere_id');
     }
 }

@@ -43,6 +43,11 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        
+        'supplier_documents' => [
+            'driver' => 'local',
+            'root' => storage_path('app/Documents'),
+        ],
 
         's3' => [
             'driver' => 's3',

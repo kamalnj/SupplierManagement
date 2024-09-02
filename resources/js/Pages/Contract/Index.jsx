@@ -125,6 +125,10 @@ const Index = ({ auth, contracts }) => {
             <ConfirmationDialog
                 isOpen={isDialogOpen}
                 onClose={closeDialog}
+                title="Supprimer Contrat"
+                description="Êtes-vous sûr de vouloir supprimer ce contrat ? Cette action est irréversible."
+                confirmText="Supprimer"
+                cancelText="Annuler"
                 onConfirm={handleConfirmDelete}
             />
             <ContractModal

@@ -31,11 +31,18 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                     Fournisseurs
                                 </NavLink>
                                 <NavLink
+                                    href={route("document.index")}
+                                    active={route().current("document.index")}
+                                >
+                                    Documents
+                                </NavLink>
+                                <NavLink
                                     href={route("contract.index")}
                                     active={route().current("contract.index")}
                                 >
                                     Contrats
                                 </NavLink>
+                             
                                 <div className="sm:flex sm:items-center ">
                             <div className="mt-1 relative">
                                 <Dropdownx>
@@ -52,18 +59,16 @@ export default function AuthenticatedLayout({ user, header, children }) {
 
                                     <Dropdownx.Content>
                                         <Dropdownx.Link
-                                            href={route("supplierEvaluation.create")}
+                                            href={route("campagnes.index")}
                                             className=""
                                         >
-                                            Evaluation des fournisseurs
+                                            Campagnes des évaluations
                                         </Dropdownx.Link>
-                                        <Dropdownx.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
+                                        {/* <Dropdownx.Link
+                                            href={route("campagnes.index")}
                                         >
-                                            Test
-                                        </Dropdownx.Link>
+                                            Statistiques des campagnes
+                                        </Dropdownx.Link> */}
                                     </Dropdownx.Content>
                                 </Dropdownx>
                             </div>

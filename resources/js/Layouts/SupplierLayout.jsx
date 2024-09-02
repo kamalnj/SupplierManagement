@@ -22,8 +22,23 @@ export default function SupplierLayout({ user, header, children }) {
                                     active={route().current(
                                         "supplier.dashboard"
                                     )}
+                                 
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    href={route("supplier.contracts.index")}
+                                    active={route().current(
+                                        "supplier.contracts.index"
+                                    )}
+                                >
+                                    Contrats
+                                </NavLink>
+                                <NavLink
+                                    href={route("documents.index")}
+                               
+                                >
+                                    Documents
                                 </NavLink>
                             </div>
                         </div>
