@@ -37,7 +37,7 @@ export default function SupplierDashboard({ auth }) {
                                     <DocumentIcon className="h-10 w-10 text-green-500" />
                                     <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">0</span>
                                 </div>
-                                <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">Documents en Attente</p>
+                                <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">Documents Manquants</p>
                             </div>
                         </div>
                         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-lg rounded-lg">

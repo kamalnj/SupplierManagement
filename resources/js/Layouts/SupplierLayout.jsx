@@ -1,5 +1,6 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
+import Dropdownx from "@/Components/Dropdownx";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
@@ -22,10 +23,66 @@ export default function SupplierLayout({ user, header, children }) {
                                     active={route().current(
                                         "supplier.dashboard"
                                     )}
-                                 
                                 >
                                     Dashboard
                                 </NavLink>
+                                <div className="sm:flex sm:items-center ">
+                                    <div className="mt-1 relative">
+                                        <Dropdownx>
+                                            <Dropdownx.Trigger>
+                                                <span className="inline-flex rounded-md">
+                                                    <button
+                                                        type="button"
+                                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                    >
+                                                        <span>
+                                                            Informations
+                                                        </span>
+                                                    </button>
+                                                </span>
+                                            </Dropdownx.Trigger>
+
+                                            <Dropdownx.Content>
+                                                <Dropdownx.Link
+                                                    href={route(
+                                                        "supplier.infogénérales.index"
+                                                    )}
+                                                    className=""
+                                                >
+                                                    Informations Générales{" "}
+                                                </Dropdownx.Link>
+                                                <Dropdownx.Link
+                                                    href={route(
+                                                        "supplier.infofinancelegale.index"
+                                                    )}
+                                                >
+                                                    Informations Financières{" "}
+                                                </Dropdownx.Link>
+                                                <Dropdownx.Link
+                                                    href={route(
+                                                        "supplier.infocantact.index"
+                                                    )}
+                                                >
+                                                    Informations de Contact{" "}
+                                                </Dropdownx.Link>
+                                                <Dropdownx.Link
+                                                    href={route(
+                                                        "supplier.inforeferenceclient.index"
+                                                    )}
+                                                >
+                                                    Références et Clients{" "}
+                                                </Dropdownx.Link>
+                                                <Dropdownx.Link
+                                                    href={route(
+                                                        "supplier.infocomments.index"
+                                                    )}
+                                                >
+                                                     Commentaires et Remarques{" "}
+                                                </Dropdownx.Link>
+                                            </Dropdownx.Content>
+                                        </Dropdownx>
+                                    </div>
+                                </div>
                                 <NavLink
                                     href={route("supplier.contracts.index")}
                                     active={route().current(
@@ -34,10 +91,7 @@ export default function SupplierLayout({ user, header, children }) {
                                 >
                                     Contrats
                                 </NavLink>
-                                <NavLink
-                                    href={route("documents.index")}
-                               
-                                >
+                                <NavLink href={route("documents.index")}>
                                     Documents
                                 </NavLink>
                             </div>

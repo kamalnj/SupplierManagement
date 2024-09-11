@@ -10,7 +10,7 @@ class Supplier extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'nom', 'adresse', 'contact', 'email', 'categorie', 'contrat', 'password', 'qualification',
+        'user_id', 'nom',  'email', 'categorie', 'contrat', 'password', 'qualification',
     ];
 
     const CONTRAT_OUI = 'Oui';
@@ -51,4 +51,25 @@ class Supplier extends Model
     {
         return $this->hasMany(Document::class, 'fournisseur_id');
     }
+    public function infoGenerales()
+    {
+        return $this->hasOne(InfoGenerales::class, 'supplier_id');
+    }
+    public function InformationsFinancieresLegales()
+    {
+        return $this->hasOne(InformationsFinancieresLegales::class, 'supplier_id');
+    }
+    public function InformationsContact()
+    {
+        return $this->Many(SupplierContact::class, 'supplier_id');
+    }
+    public function ReferencesClients()
+    {
+        return $this->Many(ReferencesClients::class, 'supplier_id');
+    }
+    public function CommentairesRemarque()
+    {
+        return $this->Many(CommentairesRemarques::class, 'supplier_id');
+    }
+    
 }

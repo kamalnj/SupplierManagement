@@ -18,8 +18,6 @@ class SupplierResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'nom' => $this->nom,
-            'adresse' => $this->adresse,
-            'contact' => $this->contact,
             'email' => $this->email,
             'contrat' => $this->contrat,
             'qualification'=>$this->qualification,

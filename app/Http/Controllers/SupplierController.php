@@ -8,16 +8,21 @@ use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Http\Resources\SupplierResource;
 use App\Mail\SupplierRegistrationMail;
+use App\Models\CommentairesRemarques;
+use App\Models\InfoGenerales;
+use App\Models\InformationsFinancieresLegales;
+use App\Models\ReferencesClients;
+use App\Models\SupplierContact;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-use Illuminate\Support\Str; // Import Str for random password
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+ // Import Str for random password
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+  
     public function index()
     {
         $suppliers = Supplier::paginate(10)->onEachSide(1);
@@ -31,6 +36,9 @@ class SupplierController extends Controller
             'qualifications' => $qualifications,
         ]);
     }
+
+ 
+
     
     
     
@@ -68,8 +76,6 @@ class SupplierController extends Controller
         $supplier = Supplier::create([
             'user_id' => $user->id, // Assign the created user ID
             'nom' => $validatedData['nom'],
-            'adresse' => $validatedData['adresse'],
-            'contact' => $validatedData['contact'],
             'email' => $validatedData['email'],
             'password' => Hash::make($password), // Hash the password
             'categorie' => $validatedData['categorie'],

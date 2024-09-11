@@ -13,7 +13,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Inertia\Inertia;
 use App\Events\ContractCreated; // Import the event class
 use App\Events\ContractDeleted;
+use App\Models\InfoGenerales;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContractReady;
 
 
 
@@ -31,54 +34,42 @@ class ContractController extends Controller
             'contracts' => ContractResource::collection($contracts),
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        // Fetch all suppliers
-        $suppliers = Supplier::all();
-        
-        // Optionally fetch specific supplier details if fournisseur_id is provided
-        $fournisseurId = $request->query('fournisseur_id');
-        $fournisseur = $fournisseurId ? Supplier::find($fournisseurId) : null;
-
-        return inertia('Contract/Create', [
-            'suppliers' => $suppliers,
-            'fournisseur' => $fournisseur,
+        $validated = $request->validate([
+            'fournisseur_id' => 'required|exists:suppliers,id',
+            'nom_fournisseur' => 'required|string|max:255',
         ]);
+    
+        // Create the CGA
+        $cga = Contract::create($validated);
+    
+        // Fetch supplier and infoGenerales data
+        $supplier = Supplier::find($validated['fournisseur_id']);
+        $infoGenerales = InfoGenerales::where('supplier_id', $validated['fournisseur_id'])->first();
+    
+        // Generate the PDF
+        $pdf = Pdf::loadView('Contrat.pdf', [
+            'supplier' => $supplier,
+            'infoGenerales' => $infoGenerales,
+            'nom_fournisseur' => $validated['nom_fournisseur']
+        ]);
+    
+        // Generate a file name based on the contract ID
+        $fileName = 'contrat_' . $cga->nom_fournisseur . '.pdf';
+    
+        // Save the PDF to storage
+        Storage::disk('local')->put('contrats/' . $fileName, $pdf->output());
+    
+        // Update the CGA record with the PDF path
+        $cga->update(['pdf_path' => 'contrats/' . $fileName]);
+    
+        // Send an email to the supplier
+        Mail::to($supplier->email)->send(new ContractReady($supplier, $fileName));
+    
+        return redirect()->back()->with('success', 'CGA créé, PDF généré, et email envoyé avec succès!');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreContractRequest $request)
-    {
-
-        // Validate and create the contract
-        $validated = $request->validated();
-
-        $validated['statut'] = 'Inactive';
-
-
-        $contract = Contract::create($validated);
-
-        $contract->load('supplier');
-
-
-        // Generate and store the PDF
-        $pdf = Pdf::loadView('contrat.pdf', ['contract' => $contract]);
-        $directory = 'contrats/';
-      
-        $pdfPath = $directory . '/' . $contract->nom_fournisseur . '.pdf';
-        Storage::put($pdfPath, $pdf->output());
-
-        event(new ContractCreated($contract));
-
-
-        return redirect()->route('contract.index')->with('success', 'Contract created successfully and PDF generated.');
-    }
+    
 
     /**
      * Display the specified resource.

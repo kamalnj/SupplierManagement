@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('campagne:update-status')
-    ->everySecond();
+    ->everySecond()
+    ->runInBackground();
+
 
 Schedule::command('contracts:update-statuses')->daily();
