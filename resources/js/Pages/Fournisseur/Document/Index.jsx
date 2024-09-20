@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import SupplierLayout from '@/Layouts/SupplierLayout';
 
+const MAX_SIZE = {
+    'default': 2 * 1024 * 1024, // 2 MB
+    'Bilan des 3 dernières années': 20 * 1024 * 1024, // 20 MB
+    'CGA': 20 * 1024 * 1024, // 20 MB
+};
+
 export default function Index({ auth }) {
     const { documents, flash } = usePage().props;
     const { data, setData, post } = useForm({
@@ -12,6 +18,7 @@ export default function Index({ auth }) {
 
     const [processingStates, setProcessingStates] = useState({});
     const [message, setMessage] = useState({ type: '', text: '' });
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (flash) {
@@ -24,17 +31,55 @@ export default function Index({ auth }) {
     }, [flash]);
 
     const handleFileChange = (e, documentId) => {
-        setData({
-            ...data,
-            document: e.target.files[0],
-            id_nom_document: documentId,
-        });
+        const file = e.target.files[0];
+        const documentName = documents.find(doc => doc.id === documentId)?.name || '';
+    
+        if (file) {
+            const maxSize = MAX_SIZE[documentName] || MAX_SIZE['default'];
+    
+            // Define allowed file types
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+    
+            // Check file type
+            if (!allowedTypes.includes(file.type)) {
+                setErrors(prev => ({
+                    ...prev,
+                    [documentId]: 'Type de fichier non autorisé. Veuillez téléverser un fichier PDF ou une image JPG/JPEG.',
+                }));
+                return;
+            }
+    
+            // Check file size
+            if (file.size > maxSize) {
+                setErrors(prev => ({
+                    ...prev,
+                    [documentId]: `Le fichier ne doit pas dépasser ${maxSize / (1024 * 1024)} Mo pour ce type de document.`,
+                }));
+                return;
+            }
+    
+            setErrors(prev => ({
+                ...prev,
+                [documentId]: '',
+            }));
+    
+            setData({
+                ...data,
+                document: file,
+                id_nom_document: documentId,
+            });
+        }
     };
+    
 
     const handleSubmit = (e, documentId) => {
         e.preventDefault();
 
-        setProcessingStates((prevStates) => ({
+        if (errors[documentId]) {
+            return; // Prevent submission if there are errors
+        }
+
+        setProcessingStates(prevStates => ({
             ...prevStates,
             [documentId]: true,
         }));
@@ -42,7 +87,7 @@ export default function Index({ auth }) {
         post(route('supplier.documents.upload'), {
             data,
             onSuccess: () => {
-                setProcessingStates((prevStates) => ({
+                setProcessingStates(prevStates => ({
                     ...prevStates,
                     [documentId]: false,
                 }));
@@ -54,7 +99,6 @@ export default function Index({ auth }) {
                     fournisseur_id: auth.user.id,
                 });
             },
-       
         });
     };
 
@@ -63,13 +107,12 @@ export default function Index({ auth }) {
             user={auth.user}
             header={
                 <div className="flex items-center justify-between p-6 bg-white shadow-md">
-                    <h2 className="text-2xl font-bold text-black">
-                        Mes Documents
-                    </h2>
+                    <h2 className="text-2xl font-bold text-black">Mes Documents</h2>
                 </div>
             }
         >
             <Head title="Mes Documents" />
+
             <div className="container mx-auto p-6">
                 <div className="bg-gray-50 dark:bg-gray-900 shadow-lg rounded-lg p-8">
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
@@ -107,6 +150,11 @@ export default function Index({ auth }) {
                                                 required
                                             />
                                         </label>
+                                        {errors[document.id] && (
+                                            <div className="text-red-500 text-sm mb-2">
+                                                {errors[document.id]}
+                                            </div>
+                                        )}
                                         <button
                                             type="submit"
                                             disabled={processingStates[document.id]}

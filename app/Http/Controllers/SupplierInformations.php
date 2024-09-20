@@ -8,6 +8,8 @@ use App\Models\SupplierContact;
 use App\Models\InformationsFinancieresLegales;
 use App\Models\ReferencesClients;
 use App\Models\CommentairesRemarques;
+use App\Models\Document;
+use App\Models\Documents_name;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -310,15 +312,25 @@ public function indexinfos($id)
 {
     // Get the supplier by ID or fail
     $supplier = Supplier::findOrFail($id);
-    
+
     // Fetch related information for the supplier
     $infoGenerales = InfoGenerales::where('supplier_id', $id)->first();
     $informationsFinancieres = InformationsFinancieresLegales::where('supplier_id', $id)->first();
     $referencesClients = ReferencesClients::where('supplier_id', $id)->get();
     $commentairesRemarques = CommentairesRemarques::where('supplier_id', $id)->get();
     $supplierContacts = SupplierContact::where('supplier_id', $id)->get();
-    
-    
+
+    // Fetch documents associated with the specific supplier
+    $documents = Document::where('fournisseur_id', $id)->with('documentName')->get();
+
+    // Fetch all document names, indexed by their ID
+    $documentNames = Documents_name::all()->keyBy('id');
+
+    // Fetch all suppliers to possibly display related suppliers or other purposes
+    $suppliers = Supplier::with('documents.documentName')->get();
+
+
+
     // Pass data to Inertia view
     return Inertia::render('Supplier/IndexInfo', [
         'supplier' => $supplier,
@@ -327,8 +339,14 @@ public function indexinfos($id)
         'referencesClients' => $referencesClients,
         'supplierContacts' => $supplierContacts,
         'commentairesRemarques' => $commentairesRemarques,
+        'documentNames' => $documentNames,
+        'suppliers' => $suppliers,
+        'documents' => $documents,
+
     ]);
 }
+
+
 
 // public function indexinfoGenerales()
 // {

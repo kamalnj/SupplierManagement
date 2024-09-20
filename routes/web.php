@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Models\InfoGenerales;
 use App\Models\InformationsFinancieresLegales;
 use App\Models\SupplierContact;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,6 +23,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
 // Routes for admins
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
@@ -33,7 +35,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('user', UserController::class);
     Route::get('/document', [DocumentController::class, 'index'])->name('document.index');
     Route::delete('document/{document}', [DocumentController::class, 'destroy'])->name('document.destroy');
-    Route::get('/admin/download/{file}', [DocumentController::class, 'downloadDocument'])->name('admin.download');
+    Route::get('/documents/{path}', [DocumentController::class, 'view'])->where('path', '.*')->name('documents.view');
     Route::resource('campagnes', CampagneController::class);
     Route::get('campagnes/{campagne}/evaluate', [CampagneController::class, 'evaluate'])->name('campagnes.evaluate');
     Route::post('campagnes/{campagne}/evaluate', [CampagneController::class, 'storeEvaluation']);
@@ -61,7 +63,7 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/fournisseur/documents', [DocumentController::class, 'Documentsindex'])->name('documents.index');
     Route::post('/fournisseur/documents/upload', [DocumentController::class, 'upload'])->name('supplier.documents.upload');
     Route::post('/fournisseur/contracts/{contract}/accept', [SupplierContractController::class, 'accept'])->name('supplier.contracts.accept');
-    Route::get('/fournisseur/contracts/{id}/download', [SupplierContractController::class, 'download'])->name('contracts.download');
+    Route::get('/fournisseur/contracts/{id}/download', [SupplierContractController::class, 'download'])->name('supplier.contracts.download');
     Route::post('/fournisseur/contracts/upload', [SupplierContractController::class, 'upload'])->middleware('auth');
 
 
