@@ -48,6 +48,17 @@ return [
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
+        
+        'email_1' => [
+            'transport' => env('MAIL_MAILER_1', 'smtp'),
+            'host' => env('MAIL_HOST_1', 'smtp.gmail.com'),
+            'port' => env('MAIL_PORT_1', 587),
+            'encryption' => env('MAIL_ENCRYPTION_1', 'tls'),
+            'username' => env('MAIL_USERNAME_1'),
+            'password' => env('MAIL_PASSWORD_1'),
+            'timeout' => null,
+            'auth_mode' => null,
+        ],
 
         'ses' => [
             'transport' => 'ses',
@@ -109,7 +120,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello1@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 

@@ -8,7 +8,8 @@ const Index = ({ auth, suppliers, categories }) => {
     const [isDialogOpen, setDialogOpen] = useState(false);
     const [supplierIdToDelete, setSupplierIdToDelete] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const { delete: deleteSupplier, post: createContract } = useForm();
+    const [nameFilter, setNameFilter] = useState(""); // New state for name filter
+    const { delete: deleteSupplier } = useForm();
 
     const openDialog = (supplierId) => {
         setSupplierIdToDelete(supplierId);
@@ -33,6 +34,9 @@ const Index = ({ auth, suppliers, categories }) => {
         setSelectedCategory(e.target.value);
     };
 
+    const handleNameChange = (e) => {
+        setNameFilter(e.target.value); // Update the name filter state
+    };
 
     return (
         <AuthenticatedLayout
@@ -51,35 +55,32 @@ const Index = ({ auth, suppliers, categories }) => {
                 <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
                     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                            <div className="w-full md:w-1/2">
+                            <div className="w-full md:w-1/2 flex items-center space-x-4">
                                 <form className="flex items-center space-x-4">
                                     <div>
-                                        <label
-                                            htmlFor="category-filter"
-                                            className="sr-only"
-                                        >
-                                            Category
-                                        </label>
+                                        <label htmlFor="category-filter" className="sr-only">Category</label>
                                         <select
                                             id="category-filter"
                                             className="bg-gray-50 border w-56 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             value={selectedCategory}
                                             onChange={handleCategoryChange}
                                         >
-                                            <option value="">
-                                                Tous les Categories
-                                            </option>
-                                            {categories.map(
-                                                (category, index) => (
-                                                    <option
-                                                        key={index}
-                                                        value={category}
-                                                    >
-                                                        {category}
-                                                    </option>
-                                                )
-                                            )}
+                                            <option value="">Tous les Categories</option>
+                                            {categories.map((category, index) => (
+                                                <option key={index} value={category}>{category}</option>
+                                            ))}
                                         </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="name-filter" className="sr-only">Nom</label>
+                                        <input
+                                            id="name-filter"
+                                            type="text"
+                                            placeholder="Rechercher"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            value={nameFilter}
+                                            onChange={handleNameChange}
+                                        />
                                     </div>
                                 </form>
                             </div>
@@ -109,70 +110,35 @@ const Index = ({ auth, suppliers, categories }) => {
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-fixed">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="px-4 py-3">
-                                            Nom du fournisseur
-                                        </th>
-                                        <th scope="col" className="px-4 py-3">
-                                            Email
-                                        </th>
-                                        <th scope="col" className="px-16 py-3">
-                                            Contrat
-                                        </th>
-                                        <th scope="col" className=" px-32 py-3">
-                                            Actions
-                                        </th>
+                                        <th scope="col" className="px-4 py-3">Nom du fournisseur</th>
+                                        <th scope="col" className="px-4 py-3">Email</th>
+                                        <th scope="col" className="px-32 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {suppliers.data
-                                        .filter(
-                                            (supplier) =>
-                                                !selectedCategory ||
-                                                supplier.categorie ===
-                                                    selectedCategory
+                                        .filter(supplier => 
+                                            (!selectedCategory || supplier.categorie === selectedCategory) &&
+                                            (supplier.nom.toLowerCase().includes(nameFilter.toLowerCase()))
                                         )
-                                        .map((supplier) => (
-                                            <tr
-                                                key={supplier.id}
-                                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                            >
-                                                <th
-                                                    scope="row"
-                                                    className="px-3 py-4 font-medium text-gray-900 dark:text-white"
-                                                >
-                                                    {supplier.nom}
-                                                </th>
-
-                                                <td className="px-1 py-4">
-                                                    {supplier.email}
-                                                </td>
-                                                <td className="px-20 py-4">
-                                                    {supplier.contrat}
-                                                </td>
-                                                <td className=" px-20 py-4 my-2 flex items-center justify-end space-x-3">
+                                        .map(supplier => (
+                                            <tr key={supplier.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <th scope="row" className="px-3 py-4 font-medium text-gray-900 dark:text-white">{supplier.nom}</th>
+                                                <td className="px-1 py-4">{supplier.email}</td>
+                                                <td className="px-40 py-4 my-2 flex items-center justify-end space-x-3">
                                                     <Link
-                                                        href={route(
-                                                            "supplier.indexinfo",
-                                                            { id: supplier.id }
-                                                        )}
+                                                        href={route("supplier.indexinfo", { id: supplier.id })}
                                                         className="font-medium text-green-600 dark:text-blue-500 hover:underline"
                                                     >
                                                         Voir
                                                     </Link>
-
                                                     <button
                                                         type="button"
                                                         className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                        onClick={() =>
-                                                            openDialog(
-                                                                supplier.id
-                                                            )
-                                                        }
+                                                        onClick={() => openDialog(supplier.id)}
                                                     >
                                                         Supprimer
                                                     </button>
-
-                                         
                                                 </td>
                                             </tr>
                                         ))}

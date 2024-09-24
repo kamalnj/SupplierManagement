@@ -8,6 +8,7 @@ use App\Models\SupplierContact;
 use App\Models\InformationsFinancieresLegales;
 use App\Models\ReferencesClients;
 use App\Models\CommentairesRemarques;
+use App\Models\Contract;
 use App\Models\Document;
 use App\Models\Documents_name;
 use App\Models\User;
@@ -23,7 +24,7 @@ class SupplierInformations extends Controller
 
     private function getAdmin()
 {
-    return User::where('usertype', 'admin')->first();
+    return User::where('usertype', 'admin')->get();
 }
 
     private function getAuthenticatedSupplier()
@@ -34,28 +35,39 @@ class SupplierInformations extends Controller
     public function indexinfoGenerales()
     {
         $supplier = $this->getAuthenticatedSupplier();
-
+        $infoGenerales = InfoGenerales::where('supplier_id', $supplier->id)->first();
+    
         return Inertia::render('Fournisseur/InformationsGenerales/Index', [
             'supplierName' => [
                 'id' => $supplier->id,
                 'nom' => $supplier->nom,
             ],
-            'infoGenerales' => InfoGenerales::where('supplier_id', $supplier->id)->get(),
+            'initialData' => [
+                'infoGenerales' => $infoGenerales ? $infoGenerales->attributesToArray() : [], // Ensure this structure
+            ],
         ]);
     }
+    
+    
 
     public function indexinformationsFinancieresLegales()
     {
         $supplier = $this->getAuthenticatedSupplier();
-
+        $informationsFinancieresLegales = InformationsFinancieresLegales::where('supplier_id', $supplier->id)->first();
+    
         return Inertia::render('Fournisseur/InformationsFinancieresLegales/Index', [
             'supplierName' => [
                 'id' => $supplier->id,
                 'nom' => $supplier->nom,
             ],
-            'informationsFinancieresLegales' => InformationsFinancieresLegales::where('supplier_id', $supplier->id)->get(),
+            'initialData' =>[
+                'informationsFinancieresLegales' => $informationsFinancieresLegales ? $informationsFinancieresLegales->attributesToArray() : [],
+
+            ]
         ]);
     }
+    
+    
 
     public function indexInformationsContact()
     {
@@ -108,12 +120,7 @@ class SupplierInformations extends Controller
     // Get the authenticated supplier
     $supplier = $this->getAuthenticatedSupplier();
 
-    // Check if InfoGenerales for this supplier already exists
-    $existingInfoGenerales = InfoGenerales::where('supplier_id', $supplier->id)->first();
 
-    if ($existingInfoGenerales) {
-        return redirect()->back()->withErrors(['error' => 'Les informations générales ont déjà été soumises.']);
-    }
 
     // Proceed with validation
     $validatedData = $request->validate([
@@ -137,12 +144,14 @@ class SupplierInformations extends Controller
     $validatedData['infoGenerales']['supplier_id'] = $supplier->id;
 
     // Create the record
-    InfoGenerales::create($validatedData['infoGenerales']);
+    InfoGenerales::updateOrCreate(
+        ['supplier_id' => $supplier->id], 
+        $validatedData['infoGenerales']   
+    );
+    // $admin = $this->getAdmin();
+    // Notification::send($admin, new InformationSubmitted('Info Generales'));
 
-    $admin = $this->getAdmin();
-    Notification::send($admin, new InformationSubmitted('Info Generales'));
-
-    return redirect()->back()->with('success', 'Informations enregistrées avec succès!');
+    return redirect()->route('supplier.infofinancelegale.index')->with('success', 'Informations enregistrées avec succès!');
 }
 
 public function storeInformationsFinancieresLegales(Request $request)
@@ -151,11 +160,11 @@ public function storeInformationsFinancieresLegales(Request $request)
     $supplier = $this->getAuthenticatedSupplier();
 
     // Check if InformationsFinancieresLegales for this supplier already exists
-    $existingInformationsFinancieresLegales = InformationsFinancieresLegales::where('supplier_id', $supplier->id)->first();
+    // $existingInformationsFinancieresLegales = InformationsFinancieresLegales::where('supplier_id', $supplier->id)->first();
 
-    if ($existingInformationsFinancieresLegales) {
-        return redirect()->back()->withErrors(['error' => 'Les informations financières et légales ont déjà été soumises.']);
-    }
+    // if ($existingInformationsFinancieresLegales) {
+    //     return redirect()->back()->withErrors(['error' => 'Les informations financières et légales ont déjà été soumises.']);
+    // }
 
     // Proceed with validation
     $validatedData = $request->validate([
@@ -171,7 +180,7 @@ public function storeInformationsFinancieresLegales(Request $request)
         'informationsFinancieresLegales.certifications_qualite' => ['nullable', 'string'],
         'informationsFinancieresLegales.licences_autorisations' => ['nullable', 'string'],
         'informationsFinancieresLegales.polices_assurance' => ['nullable', 'string'],
-        'informationsFinancieresLegales.plan_continuite' => ['nullable', 'boolean'],
+        'informationsFinancieresLegales.plan_continuite_crise' => ['nullable', 'boolean'],
         'informationsFinancieresLegales.politique_rse' => ['nullable', 'boolean'],
         'informationsFinancieresLegales.pratiques_ethiques' => ['nullable', 'boolean'],
     ]);
@@ -180,37 +189,54 @@ public function storeInformationsFinancieresLegales(Request $request)
     $validatedData['informationsFinancieresLegales']['supplier_id'] = $supplier->id;
 
     // Create the record
-    InformationsFinancieresLegales::create($validatedData['informationsFinancieresLegales']);
+    InformationsFinancieresLegales::updateOrCreate(
+        ['supplier_id' => $supplier->id], 
+        $validatedData['informationsFinancieresLegales']);
 
-    $admin = $this->getAdmin();
-    Notification::send($admin, new InformationSubmitted('Informations Financières et Légales'));
+    // $admin = $this->getAdmin();
+    // Notification::send($admin, new InformationSubmitted('Informations Financières et Légales'));
 
 
-    return redirect()->back()->with('success', 'Informations enregistrées avec succès!');
+    return redirect()->route('supplier.infocantact.index')->with('success', 'Informations enregistrées avec succès!');
 }
 
-    public function storeInformationsContact(Request $request)
-    {
-        $validatedData = $request->validate([
-            'supplier_id' => 'required|exists:suppliers,id',
-            'supplierContacts.nom_prenom' => 'required|string',
-            'supplierContacts.fonction' => 'required|string',
-            'supplierContacts.telephone' => 'required|string',
-            'supplierContacts.email' => 'required|email',
-        ]);
+public function storeInformationsContact(Request $request)
+{
+    $supplier = $this->getAuthenticatedSupplier();
 
-        SupplierContact::create(
-            array_merge($validatedData['supplierContacts'], ['supplier_id' => $validatedData['supplier_id']])
-        );
+    // Validate the supplier_id always
+    $validatedData = $request->validate([
+        'supplier_id' => 'required|exists:suppliers,id',
+    ]);
 
-        $admin = $this->getAdmin();
-    Notification::send($admin, new InformationSubmitted('Informations Contact'));
+    // Always validate supplierContacts fields
+    $validatedContacts = $request->validate([
+        'supplierContacts.nom_prenom' => 'required|string',
+        'supplierContacts.fonction' => 'required|string',
+        'supplierContacts.telephone' => 'required|string',
+        'supplierContacts.email' => 'required|email',
+    ]);
+
+    // Create the contact
+    SupplierContact::create([
+        'supplier_id' => $validatedData['supplier_id'],
+        'nom_prenom' => $validatedContacts['supplierContacts']['nom_prenom'],
+        'fonction' => $validatedContacts['supplierContacts']['fonction'],
+        'telephone' => $validatedContacts['supplierContacts']['telephone'],
+        'email' => $validatedContacts['supplierContacts']['email'],
+    ]);
+
+    // Notify the admin
+    // $admin = $this->getAdmin();
+    // Notification::send($admin, new InformationSubmitted('Informations Contact'));
+
+    return redirect()->route('supplier.inforeferenceclient.index')->with('success', 'Contact ajouté avec succès!');
+}
 
 
-        return redirect()->back()->with('success', 'Contact ajouté avec succès!');
-    }
 
-    public function storeRéférenceClients(Request $request)
+
+public function storeRéférenceClients(Request $request) 
 {
     $validatedData = $request->validate([
         'supplier_id' => 'required|exists:suppliers,id',
@@ -218,39 +244,55 @@ public function storeInformationsFinancieresLegales(Request $request)
         'referencesClients.projets_realises' => ['nullable', 'string'],
     ]);
 
-    // Create a new record every time
+    // Check if both fields are null
+    if (empty($validatedData['referencesClients']['principaux_clients']) && empty($validatedData['referencesClients']['projets_realises'])) {
+        return redirect()->route('supplier.infocomments.index')->with('info', 'Aucune information à enregistrer. Veuillez remplir au moins un champ.');
+    }
+
+    // Create a new record
     ReferencesClients::create([
         'supplier_id' => $validatedData['supplier_id'],
         'principaux_clients' => $validatedData['referencesClients']['principaux_clients'] ?? null,
         'projets_realises' => $validatedData['referencesClients']['projets_realises'] ?? null,
     ]);
 
-    $admin = $this->getAdmin();
-    Notification::send($admin, new InformationSubmitted('Référence Clients'));
+    // $admin = $this->getAdmin();
+    // Notification::send($admin, new InformationSubmitted('Référence Clients'));
 
-    return redirect()->back()->with('success', 'Informations enregistrées avec succès!');
+    return redirect()->route('supplier.infocomments.index')->with('success', 'Informations enregistrées avec succès!');
 }
+
 public function storeCommentairesRemarques(Request $request)
 {
+    // Récupérez l'admin avant la validation
+    $admin = $this->getAdmin();
+
+    // Valider les données
     $validatedData = $request->validate([
         'supplier_id' => 'required|exists:suppliers,id',
         'commentairesRemarques.commentaire' => ['nullable', 'string'],
         'commentairesRemarques.remarques' => ['nullable', 'string'],
     ]);
 
-    // Create a new record every time
+    // Envoyer la notification, peu importe le contenu du formulaire
+    Notification::send($admin, new InformationSubmitted('Commentaires et Remarques'));
+
+    // Vérifiez si les deux champs sont vides
+    if (empty($validatedData['commentairesRemarques']['commentaire']) && empty($validatedData['commentairesRemarques']['remarques'])) {
+        return redirect()->back()->with('info', 'Aucune information à enregistrer. Veuillez remplir au moins un champ.');
+    }
+
+    // Créer un nouvel enregistrement
     CommentairesRemarques::create([
         'supplier_id' => $validatedData['supplier_id'],
         'commentaire' => $validatedData['commentairesRemarques']['commentaire'] ?? null,
         'remarques' => $validatedData['commentairesRemarques']['remarques'] ?? null,
     ]);
 
-    $admin = $this->getAdmin();
-    Notification::send($admin, new InformationSubmitted('Commentaires et Remarques'));
-
-
     return redirect()->back()->with('success', 'Informations enregistrées avec succès!');
 }
+
+
 private function countFilledFields($data, $obligatoryFields)
 {
     $filledCount = 0;
@@ -320,6 +362,9 @@ public function indexinfos($id)
     $commentairesRemarques = CommentairesRemarques::where('supplier_id', $id)->get();
     $supplierContacts = SupplierContact::where('supplier_id', $id)->get();
 
+    $existingInformations = $infoGenerales !== null && 
+    $informationsFinancieres !== null && 
+    $supplierContacts->isNotEmpty();
     // Fetch documents associated with the specific supplier
     $documents = Document::where('fournisseur_id', $id)->with('documentName')->get();
 
@@ -328,6 +373,13 @@ public function indexinfos($id)
 
     // Fetch all suppliers to possibly display related suppliers or other purposes
     $suppliers = Supplier::with('documents.documentName')->get();
+
+  
+    $contracts = Contract::where('fournisseur_id', $id)->get();
+
+    // Check if there's an existing contract
+    $existingContract = $contracts->isNotEmpty();
+
 
 
 
@@ -342,6 +394,9 @@ public function indexinfos($id)
         'documentNames' => $documentNames,
         'suppliers' => $suppliers,
         'documents' => $documents,
+        'existingContract' => $existingContract, 
+        'existingInformations' => $existingInformations, 
+
 
     ]);
 }

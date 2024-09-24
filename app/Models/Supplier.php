@@ -43,10 +43,7 @@ class Supplier extends Model
         return $this->hasMany(ResultatsEvaluation::class);
     }
 
-    public function campagnes()
-    {
-        return $this->belongsToMany(Campagnes::class, 'fournisseurs_campagnes', 'supplier_id', 'campagne_id');
-    }
+
     public function documents()
     {
         return $this->hasMany(Document::class, 'fournisseur_id');

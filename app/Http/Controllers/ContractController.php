@@ -26,14 +26,24 @@ class ContractController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contracts = Contract::with('supplier')->paginate(10);
-
+        // Start the query
+        $query = Contract::with('supplier');
+    
+        // If there's a search term, filter the results
+        if ($request->has('searchTerm') && $request->input('searchTerm') !== '') {
+            $query->where('nom_fournisseur', 'like', '%' . $request->input('searchTerm') . '%');
+        }
+    
+        // Get the paginated results
+        $contracts = $query->paginate(10);
+    
         return Inertia::render('Contract/Index', [
             'contracts' => ContractResource::collection($contracts),
         ]);
     }
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -47,12 +57,16 @@ class ContractController extends Controller
         // Fetch supplier and infoGenerales data
         $supplier = Supplier::find($validated['fournisseur_id']);
         $infoGenerales = InfoGenerales::where('supplier_id', $validated['fournisseur_id'])->first();
-    
+        
+        $currentDate = date('d/m/y'); // Format: jj/mm/aa
+
         // Generate the PDF
         $pdf = Pdf::loadView('Contrat.pdf', [
             'supplier' => $supplier,
             'infoGenerales' => $infoGenerales,
-            'nom_fournisseur' => $validated['nom_fournisseur']
+            'nom_fournisseur' => $validated['nom_fournisseur'],
+            'currentDate' => $currentDate, // Pass the current date to the view
+
         ]);
     
         // Generate a file name based on the contract ID
@@ -74,32 +88,19 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contract $contract)
-    {
-        $contract->load('supplier');
-        return inertia('Contract/Show', compact('contract'));
-    }
 
-    public function showPdf(Contract $contract)
-    {
-        $contract->load('supplier');
-    
-        // Generate the PDF
-        $pdf = Pdf::loadView('contrat.pdf', ['contract' => $contract]);
-    
-        // Create the filename with contract ID
-        $filename = 'contract_' . $contract->nom_fournisseur . '.pdf';
-    
-        // Define the folder path
-        $folderPath = 'contrats/'; // Path relative to public/storage
-    
-        // Store the PDF in the defined folder
-        $pdfPath = $folderPath . $filename;
-        Storage::disk('public')->put($pdfPath, $pdf->output());
-    
-        // Return the PDF as a download response
-        return response()->download(storage_path('app/public/' . $pdfPath));
-    }
+     public function viewContract($path)
+     {
+         $filePath = storage_path('app/contrats/' . $path);
+     
+         if (file_exists($filePath)) {
+             return response()->file($filePath, [
+                 'Content-Type' => 'application/pdf',
+                 'Content-Disposition' => 'inline; filename="' . basename($filePath) . '"',
+             ]);}
+         return redirect()->back()->with('error', 'Contrat non trouvé.');
+     }
+     
 
     /**
      * Show the form for editing the specified resource.

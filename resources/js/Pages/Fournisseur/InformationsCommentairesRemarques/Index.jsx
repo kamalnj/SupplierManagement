@@ -1,13 +1,16 @@
-import React from 'react';
-import { Head, useForm} from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import SupplierLayout from '@/Layouts/SupplierLayout.jsx';
 import InfoCommentsRemarqueForm from '@/Components/InfoCommentsRemarqueForm';
 
 const Index = ({ initialData = {}, supplierName, auth, commentairesRemarques }) => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         commentairesRemarques: initialData?.commentairesRemarques || {},
         supplier_id: supplierName.id || '',
     });
+
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleFormChange = (section, name, value) => {
         setData(section, {
@@ -20,9 +23,13 @@ const Index = ({ initialData = {}, supplierName, auth, commentairesRemarques }) 
         e.preventDefault();
         post(route('supplier.commentaireremarque.upload'), {
             onSuccess: () => {
-                console.log("Data uploaded successfully");
+                setSuccessMessage('Données téléchargées avec succès');
+                setErrorMessage(''); 
+                reset(); 
             },
             onError: (errors) => {
+                setErrorMessage('Une erreur est survenue lors du téléchargement des données');
+                setSuccessMessage(''); 
                 console.error(errors);
             },
         });
@@ -30,11 +37,23 @@ const Index = ({ initialData = {}, supplierName, auth, commentairesRemarques }) 
 
     return (
         <SupplierLayout user={auth.user}>
-            <Head title="Mes Contacts" />
+            <Head title="Mes Informations" />
 
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
                     <h2 className="text-lg font-semibold text-gray-800 mb-4">Commentaires et Remarques</h2>
+
+                    {successMessage && (
+                        <div className="my-4 text-green-600 text-center">
+                            {successMessage}
+                        </div>
+                    )}
+
+                    {errorMessage && (
+                        <div className="my-4 text-red-600 text-center">
+                            {errorMessage}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <InfoCommentsRemarqueForm
@@ -42,12 +61,17 @@ const Index = ({ initialData = {}, supplierName, auth, commentairesRemarques }) 
                             onChange={(name, value) => handleFormChange('commentairesRemarques', name, value)}
                         />
                         <div className="flex justify-center">
+                        <Link
+                        className="bg-blue-600 w-28 mr-6 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        href={route("supplier.inforeferenceclient.index")}
+                    >
+                        Précédent
+                    </Link>
                             <button
                                 type="submit"
-                                className="w-full max-w-xs bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
-                                disabled={processing}
+                                className="  bg-blue-600 w-28 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                {processing ? 'Enregistrement...' : 'Enregistrer'}
+                                Enregistrer
                             </button>
                         </div>
                     </form>

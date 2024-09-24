@@ -23,6 +23,8 @@ const IndexInfo = ({
     documentNames,
     documents,
     suppliers,
+    existingContract,
+    existingInformations,
 }) => {
     const { delete: deleteDocument } = useForm();
     // Ensure data is an object for `infoGenerales` and `informationsFinancieres`
@@ -94,7 +96,6 @@ const IndexInfo = ({
             });
         }
     };
-   
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -293,65 +294,69 @@ const IndexInfo = ({
                         </p>
                     )}
                 </section>
-{/* Documents */}
-<section className="bg-white p-6 shadow-lg rounded-lg">
-    <h2 className="text-3xl font-bold mb-6 text-gray-900 flex items-center">
-        <FontAwesomeIcon
-            icon={faFilePdf}
-            className="mr-3 text-red-600 text-2xl"
-        />
-        Documents
-    </h2>
+                {/* Documents */}
+                <section className="bg-white p-6 shadow-lg rounded-lg">
+                    <h2 className="text-3xl font-bold mb-6 text-gray-900 flex items-center">
+                        <FontAwesomeIcon
+                            icon={faFilePdf}
+                            className="mr-3 text-red-600 text-2xl"
+                        />
+                        Documents
+                    </h2>
 
-    {/* Total Documents Display */}
-    <div className="mb-4 p-4 bg-gray-200 rounded-md shadow">
-       
-        <p className="text-gray-600">Documents Télécharger: {documents.length} / 6 </p>
-    </div>
-
-    {documents.length > 0 ? (
-        <div className="space-y-4">
-            {documents.map((doc) => {
-                const documentName =
-                    documentNames[doc.id_nom_document]?.nom ||
-                    "Nom non disponible";
-
-                return (
-                    <div
-                        key={doc.id}
-                        className="bg-gray-100 p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
-                    >
-                        <div className="flex items-center justify-between mb-3">
-                            <p className="text-lg font-semibold text-gray-800">
-                                {documentName}
-                            </p>
-                            <button
-                                type="button"
-                                className="text-red-600 hover:text-red-800 transition-colors duration-200"
-                                onClick={() => handleDelete(doc.id)}
-                            >
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                            </button>
-                        </div>
-                        <a
-                            className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150"
-                            href={`/documents/${doc.fichier}`} // Manually build the URL
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Voir
-                        </a>
+                    {/* Total Documents Display */}
+                    <div className="mb-4 p-4 bg-gray-200 rounded-md shadow">
+                        <p className="text-gray-600">
+                            Documents Télécharger: {documents.length} / 6{" "}
+                        </p>
                     </div>
-                );
-            })}
-        </div>
-    ) : (
-        <p className="text-gray-600 text-lg italic">
-            Aucun document disponible pour ce fournisseur.
-        </p>
-    )}
-</section>
 
+                    {documents.length > 0 ? (
+                        <div className="space-y-4">
+                            {documents.map((doc) => {
+                                const documentName =
+                                    documentNames[doc.id_nom_document]?.nom ||
+                                    "Nom non disponible";
+
+                                return (
+                                    <div
+                                        key={doc.id}
+                                        className="bg-gray-100 p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                                    >
+                                        <div className="flex items-center justify-between mb-3">
+                                            <p className="text-lg font-semibold text-gray-800">
+                                                {documentName}
+                                            </p>
+                                            <button
+                                                type="button"
+                                                className="text-red-600 hover:text-red-800 transition-colors duration-200"
+                                                onClick={() =>
+                                                    handleDelete(doc.id)
+                                                }
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTrashAlt}
+                                                />
+                                            </button>
+                                        </div>
+                                        <a
+                                            className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150"
+                                            href={`/documents/${doc.fichier}`} // Manually build the URL
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Voir
+                                        </a>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <p className="text-gray-600 text-lg italic">
+                            Aucun document disponible pour ce fournisseur.
+                        </p>
+                    )}
+                </section>
 
                 <section className="bg-white p-6 shadow-md rounded-md mb-6">
                     <form onSubmit={handleSubmit}>
@@ -379,19 +384,31 @@ const IndexInfo = ({
                         </div>
 
                         <div className="flex justify-center mt-4">
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className={`px-4 py-2 rounded-md ${
-                                    processing ? "bg-gray-400" : "bg-blue-600"
-                                } text-white hover:${
-                                    processing ? "bg-gray-500" : "bg-blue-700"
-                                } transition`}
-                            >
-                                {processing
-                                    ? "Création en cours..."
-                                    : "Créer CGA"}
-                            </button>
+                            {existingContract || !existingInformations ? (
+                                <p className="text-red-600">
+                                    {existingContract
+                                        ? "CGA existe déjà pour ce fournisseur."
+                                        : "Aucune information disponible pour créer CGA."}
+                                </p>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className={`px-4 py-2 rounded-md ${
+                                        processing
+                                            ? "bg-gray-400"
+                                            : "bg-blue-600"
+                                    } text-white hover:${
+                                        processing
+                                            ? "bg-gray-500"
+                                            : "bg-blue-700"
+                                    } transition`}
+                                >
+                                    {processing
+                                        ? "Création en cours..."
+                                        : "Créer CGA"}
+                                </button>
+                            )}
                         </div>
                     </form>
                 </section>

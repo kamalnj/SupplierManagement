@@ -1,48 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
-    const [formData, setFormData] = useState({
-        date_creation: data.date_creation || "",
-        effectif: data.effectif || "",
-        forme_juridique: data.forme_juridique || "",
-        capital_social: data.capital_social || "",
-        adresse_siege_social: data.adresse_siege_social || "",
-        numero_rc: data.numero_rc || "",
-        lieu_immatriculation: data.lieu_immatriculation || "",
-        numero_if: data.numero_if || "",
-        numero_patente: data.numero_patente || "",
-        numero_ice: data.numero_ice || "",
-        telephone: data.telephone || "",
-        site_web: data.site_web || "",
-        nom_representant: data.nom_representant || "",
-        fonction_representant: data.fonction_representant || "",
-    });
-
     useEffect(() => {
-        setFormData({
-            date_creation: data.date_creation || "",
-            effectif: data.effectif || "",
-            forme_juridique: data.forme_juridique || "",
-            capital_social: data.capital_social || "",
-            adresse_siege_social: data.adresse_siege_social || "",
-            numero_rc: data.numero_rc || "",
-            lieu_immatriculation: data.lieu_immatriculation || "",
-            numero_if: data.numero_if || "",
-            numero_patente: data.numero_patente || "",
-            numero_ice: data.numero_ice || "",
-            telephone: data.telephone || "",
-            site_web: data.site_web || "",
-            nom_representant: data.nom_representant || "",
-            fonction_representant: data.fonction_representant || "",
-        });
+        console.log("Data received:", data); // Check the data structure
     }, [data]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
         onChange(name, value);
     };
 
@@ -68,7 +32,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="date"
                             name="date_creation"
-                            value={formData.date_creation}
+                            value={data.date_creation}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -81,7 +45,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="number"
                             name="effectif"
-                            value={formData.effectif}
+                            value={data.effectif}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -94,7 +58,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="forme_juridique"
-                            value={formData.forme_juridique}
+                            value={data.forme_juridique}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -107,7 +71,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="capital_social"
-                            value={formData.capital_social}
+                            value={data.capital_social}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -120,7 +84,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="adresse_siege_social"
-                            value={formData.adresse_siege_social}
+                            value={data.adresse_siege_social}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -133,7 +97,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="number"
                             name="numero_rc"
-                            value={formData.numero_rc}
+                            value={data.numero_rc}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -146,7 +110,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="lieu_immatriculation"
-                            value={formData.lieu_immatriculation}
+                            value={data.lieu_immatriculation}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -159,7 +123,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="number"
                             name="numero_if"
-                            value={formData.numero_if}
+                            value={data.numero_if}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -172,7 +136,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="number"
                             name="numero_patente"
-                            value={formData.numero_patente}
+                            value={data.numero_patente}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -185,7 +149,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="number"
                             name="numero_ice"
-                            value={formData.numero_ice}
+                            value={data.numero_ice}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -198,7 +162,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="nom_representant"
-                            value={formData.nom_representant}
+                            value={data.nom_representant}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -211,7 +175,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="text"
                             name="fonction_representant"
-                            value={formData.fonction_representant}
+                            value={data.fonction_representant}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -224,7 +188,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="tel"
                             name="telephone"
-                            value={formData.telephone}
+                            value={data.telephone}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                             required
@@ -237,7 +201,7 @@ const InfoGeneralesForm = ({ data, onChange, supplierName }) => {
                         <input
                             type="url"
                             name="site_web"
-                            value={formData.site_web}
+                            value={data.site_web}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
                         />

@@ -18,29 +18,17 @@
     <h1>CONDITIONS GENERALES D’ACHAT (PAR ABREVIATION « CGA »)</h1>
     <div class="content">
         <p><strong>ENTRE :</strong></p>
-        <p><strong>&nbsp;</strong></p>
         <p><strong>LA SOCIETE MAGHREBINE DE MONETIQUE par abr&eacute;viation S2M,</strong>&nbsp;Soci&eacute;t&eacute; Anonyme &agrave; Directoire et &agrave; Conseil de Surveillance au capital de 40.603.500,00 de Dirhams ayant son si&egrave;ge social &agrave; Casablanca, Casa Nearshore Park 2C 306 &ndash; 1100 Bd al Qods Quartier Sidi Maarouf, immatricul&eacute;e au registre de commerce de Casablanca sous le num&eacute;ro 43 625 valablement repr&eacute;sent&eacute;e par M. Omar MASNAOUI en qualit&eacute; de Group CFO &ndash; membre du Directoire.</p>
-        <p>&nbsp;</p>
         <p>R&eacute;guli&egrave;rement habilit&eacute; &agrave; cet effet.</p>
-        <p>&nbsp;</p>
         <p>Ci-apr&egrave;s d&eacute;nomm&eacute;e le &laquo;&nbsp;Client&nbsp;&raquo;,</p>
-        <p>&nbsp;</p>
         <p><strong>D&rsquo;une part</strong>,</p>
         <p><strong>ET</strong></p>
-        <p><strong>&nbsp;</strong></p>
         <p><strong> {{ $nom_fournisseur }}</strong><strong>,</strong>&nbsp;au capital de&nbsp;{{ $infoGenerales->capital_social }}&nbsp;DH dont le si&egrave;ge social est sis &agrave;&nbsp;{{ $infoGenerales->adresse_siege_social }}, inscrite au Registre du Commerce de&nbsp; {{ $infoGenerales->lieu_immatriculation }}&nbsp;sous le num&eacute;ro&nbsp;{{ $infoGenerales->numero_rc }}</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <p>repr&eacute;sent&eacute;e par&nbsp;&nbsp;{{ $infoGenerales->nom_representant }}</p>
-        <p>&nbsp;</p>
         <p>en qualit&eacute; de&nbsp;{{ $infoGenerales->fonction_representant }}</p>
         <p>agissant en vertu des pouvoirs qui lui sont conf&eacute;r&eacute;s.</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <p>Ci-apr&egrave;s d&eacute;nomm&eacute;e &laquo;&nbsp;le Prestataire &raquo;,</p>
         <p><strong>D&rsquo;autre part</strong>,</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505319"></a>Le Client et le Prestataire &eacute;tant ci-apr&egrave;s d&eacute;nomm&eacute;s, individuellement ou collectivement, la ou les &laquo;&nbsp;Parties&nbsp;&raquo;.</p>
         <p>&nbsp;</p>
         <p><a name="_Toc90505320"></a>Chacun des signataires des CGA garantit que le pouvoir en vertu duquel il agit n'a pas &eacute;t&eacute; r&eacute;voqu&eacute; ou limit&eacute; et qu'il est suffisant pour obliger les repr&eacute;sent&eacute;s dans l&rsquo;ex&eacute;cution des pr&eacute;sentes CGA.</p>
@@ -94,23 +82,19 @@
         <p><a href="#_Toc90505425">Article 22.04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manquement</a></p>
         <p><a href="#_Toc90505427">Article 22.05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Archivage</a></p>
         <p><a href="#_Toc90505429">ARTICLE 23 - LOI APPLICABLE, LITIGES ET ATTRIBUTION DE COMPETENCE</a></p>
-        <p>&nbsp;</p>
         <p><strong><a name="_Toc54605405"></a><u>&nbsp;</u></strong></p>
         <p style="font-weight: 400;">&nbsp;</p>
         <p><a name="_Toc90505321"></a><strong><u>&nbsp;</u></strong></p>
         <h1>ARTICLE 1 -&nbsp;Champ d&rsquo;Application</h1>
         <p>Les pr&eacute;sentes CGA s&rsquo;appliquent &agrave; toute commande, en cours d&rsquo;ex&eacute;cution ou future, de mati&egrave;res, mat&eacute;riels, &eacute;quipements ou services de toute nature&nbsp;(la &laquo;&nbsp;Prestation&nbsp;&raquo;) effectu&eacute;e par le Client, sauf conventions contraires et/ou sp&eacute;ciales conclues par &eacute;crit entre les Parties.</p>
         <p>Les pr&eacute;sentes CGA ainsi que les Contrats, les annexes et &eacute;ventuels avenants ult&eacute;rieurs constituent l&rsquo;int&eacute;gralit&eacute; des engagements des Parties.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505322"></a>ARTICLE 2 -&nbsp;opposabilit&eacute;</h1>
         <p>En acceptant la commande pass&eacute;e par le Client ou en signant un Contrat, le Prestataire s&rsquo;engage &agrave; respecter les pr&eacute;sentes CGA.</p>
         <p>En cons&eacute;quence, toutes conditions g&eacute;n&eacute;rales de vente figurant, le cas &eacute;ch&eacute;ant, sur l&rsquo;un quelconque des documents du Prestataire ne pourront en aucun cas pr&eacute;valoir sur les pr&eacute;sentes CGA qui seules demeurent valables entre les Parties lors de toutes commandes pass&eacute;es par le Client, ce que le Prestataire reconna&icirc;t et accepte express&eacute;ment.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505323"></a>ARTICLE 3 -&nbsp;Transfert de la propri&eacute;t&eacute;</h1>
         <p>Le Client devient propri&eacute;taire des produits objets de la Prestation d&egrave;s leur r&eacute;ception, sans pr&eacute;judice des stipulations relatives aux garanties pr&eacute;vues &agrave; l&rsquo;ARTICLE 4 -&nbsp;ci-apr&egrave;s.</p>
         <p>Toute clause de r&eacute;serve de propri&eacute;t&eacute; du Prestataire est r&eacute;put&eacute;e non-&eacute;crite.</p>
         <p><a name="_Toc452573094"></a><a name="_Toc452472301"></a>En cas de redressement ou de liquidation judiciaire ou de toute autre proc&eacute;dure pr&eacute;vue par le Livre V du Code de commerce relatif aux difficult&eacute;s de l&rsquo;entreprise, sauf r&eacute;siliation de la commande par le Client conform&eacute;ment &agrave; l&rsquo;ARTICLE 8 -&nbsp;ci-dessous, le transfert de propri&eacute;t&eacute; des produits command&eacute;s, fabriqu&eacute;s, en cours de fabrication ou en cours de transport, s'effectuera de plein droit au b&eacute;n&eacute;fice du Client &agrave; la date de d&eacute;cision de justice ordonnant l&rsquo;ouverture de ladite proc&eacute;dure&nbsp;; le syndic ne pouvant se pr&eacute;valoir d'aucun droit sur tout ou partie de ces produits en dehors du paiement des sommes restant dues au Prestataire.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505324"></a>ARTICLE 4 -&nbsp;Garanties</h1>
         <p><a name="_Toc452573096"></a><a name="_Toc452472303"></a>Sauf stipulations particuli&egrave;res contraires des Parties dans le Contrat, le Prestataire garantit contractuellement, pour une dur&eacute;e de douze (12) mois &agrave; compter de leur r&eacute;ception par le Client, que les produits livr&eacute;s sont&nbsp;:</p>
         <ol>
@@ -220,9 +204,7 @@
         <p>Le pr&eacute;sent article &laquo;&nbsp;Donn&eacute;es &agrave; caract&egrave;re personnel &raquo; survivra &agrave; la r&eacute;siliation ou &agrave; l&rsquo;expiration du Contrat pour quelque cause que ce soit.</p>
         <p>&nbsp;</p>
         <h1><a name="_Toc90505362"></a><a name="_Toc54605445"></a>ARTICLE 8 -&nbsp;R&eacute;siliation</h1>
-        <p>&nbsp;</p>
         <p>Le Client se r&eacute;serve le droit de r&eacute;silier tout Contrat de plein droit avec effet imm&eacute;diat, &agrave; tout moment apr&egrave;s envoi au Prestataire d&rsquo;une lettre recommand&eacute;e avec accus&eacute; de r&eacute;ception, si le Client constate&nbsp;:</p>
-        <p>&nbsp;</p>
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une inex&eacute;cution totale ou partielle par le Prestataire de l&rsquo;une quelconque de ses obligations d&eacute;coulant de la loi, des pr&eacute;sentes CGA ou des conditions particuli&egrave;res convenues dans le Contrat et sans que le Prestataire n&rsquo;ait rem&eacute;di&eacute; &agrave; ladite inex&eacute;cution dans les d&eacute;lais pr&eacute;alablement accept&eacute;s par le Client&nbsp;;</p>
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L&rsquo;ouverture d&rsquo;une proc&eacute;dure de redressement ou de liquidation judiciaire ou toute autre proc&eacute;dure vis&eacute;e par le Livre V du Code de Commerce &laquo;&nbsp;Difficult&eacute;s des entreprises&nbsp;&raquo; &agrave; l&rsquo;encontre du Prestataire&nbsp;;</p>
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Le refus du Prestataire de signer tout acte ou tout avenant suite &agrave; l&rsquo;adoption d&rsquo;une nouvelle loi ou r&eacute;glementation n&eacute;cessitant un tel acte ou avenant&nbsp;;</p>
@@ -231,17 +213,13 @@
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La non-reconduction ou de l&rsquo;amoindrissement par le Prestataire de l&rsquo;&eacute;tendue des garanties des polices objet de l&rsquo;article &laquo;&nbsp;ASSURANCE&nbsp;&raquo;&nbsp;des pr&eacute;sentes CGA&nbsp;;</p>
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Une sous-traitance non autoris&eacute;e par le Client&nbsp;;</p>
         <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;La cession non autoris&eacute;e du Contrat.</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc330548827"></a><a name="_Toc330553769"></a>La r&eacute;siliation sera prononc&eacute;e sans pr&eacute;judice des autres recours du Client et notamment sans pr&eacute;judice de son droit de suspendre l&rsquo;ex&eacute;cution de ses obligations, notamment tout paiement, pr&eacute;alablement &agrave; la notification de la r&eacute;siliation de plein droit pr&eacute;vue au pr&eacute;sent article.</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc452573111"></a><a name="_Toc452472314"></a>En outre, sauf stipulations contraires des Parties dans le Contrat, le Client se r&eacute;serve le droit de r&eacute;silier &agrave; tout moment tout ou partie de la commande par lettre recommand&eacute;e avec accus&eacute; de r&eacute;ception, sans avoir &agrave; justifier d&rsquo;un quelconque motif ni &agrave; observer un quelconque pr&eacute;avis &agrave; l&rsquo;&eacute;gard du Prestataire.</p>
         <p>Dans ce cas, le Prestataire pourra r&eacute;clamer une compensation dont le montant sera fix&eacute; d&rsquo;un commun accord entre les Parties, en tenant compte de la date de la r&eacute;siliation, des Prestations livr&eacute;es et/ou r&eacute;alis&eacute;es et des co&ucirc;ts et d&eacute;penses d&eacute;j&agrave; engag&eacute;s par le Prestataire au titre de la commande r&eacute;sili&eacute;e ainsi que des possibilit&eacute;s de vente des produits &agrave; d&rsquo;autres clients.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc54605413"></a><a name="_Toc90505367"></a>ARTICLE 9 -&nbsp;force majeure</h1>
         <p>En cas de survenance d&rsquo;un &eacute;v&eacute;nement r&eacute;sultant de la force majeure tel que d&eacute;fini par l&rsquo;article 269 du Dahir portant Obligations et Contrats, les obligations contractuelles r&eacute;ciproques des Parties seront suspendues pour la dur&eacute;e de l'incident et aucune d&rsquo;entre elles ne pourra pr&eacute;tendre &agrave; une quelconque indemnisation.</p>
         <p>La Partie affect&eacute;e par un cas de force majeure adressera sans d&eacute;lai &agrave; l&rsquo;autre Partie une notification par lettre recommand&eacute;e avec avis de r&eacute;ception informant cette autre Partie de la survenance d'un cas de force majeure, de la dur&eacute;e estim&eacute;e et des moyens n&eacute;cessaires pour y rem&eacute;dier ainsi que des implications probables sur la Prestation. D&egrave;s r&eacute;ception de cette notification, les Parties se rapprocheront et feront leurs meilleurs efforts pour d&eacute;terminer d&rsquo;un commun accord les actions &agrave; entreprendre pour rem&eacute;dier &agrave; l&rsquo;incident susvis&eacute;.</p>
         <p>Si les effets de l&rsquo;&eacute;v&eacute;nement r&eacute;sultant de la force majeure perdurent plus d&rsquo;un (1) mois &agrave; compter de la date de livraison initialement pr&eacute;vue, le Contrat pourra &ecirc;tre r&eacute;sili&eacute; de plein droit par l&rsquo;une ou l&rsquo;autre des parties et sans indemnit&eacute;.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505368"></a>ARTICLE 10 -&nbsp;OBLIGATIONS GENERALES DE SECURITE</h1>
         <p><a name="_Toc90505389"></a><a name="_Toc276024856"></a>D&rsquo;une mani&egrave;re g&eacute;n&eacute;rale, le Prestataire est tenu de mettre en place les mesures techniques et organisationnelles n&eacute;cessaires &agrave; la s&eacute;curit&eacute; des donn&eacute;es et du syst&egrave;me d&rsquo;information du Client, conform&eacute;ment aux r&egrave;gles de l&rsquo;art et ce, afin d&rsquo;assurer&nbsp;:</p>
         <ul>
@@ -255,65 +233,38 @@
         <p><a name="_Toc90505390"></a>Le Prestataire s&rsquo;engage &agrave; justifier de la mise en place de ces mesures pendant toute la dur&eacute;e du Contrat, sans d&eacute;lai, sur demande du Client.</p>
         <p><a name="_Toc90505391"></a>Les politiques, proc&eacute;dures et mesures de s&eacute;curit&eacute; mises en &oelig;uvre par le Prestataire, le cas &eacute;ch&eacute;ant sur instruction du Client, devront en tout &eacute;tat de cause &ecirc;tre document&eacute;es et approuv&eacute;es par le Client et rester conformes aux r&egrave;gles de l&rsquo;art applicables dans ce domaine.</p>
         <p><a name="_Toc90505392"></a>Le Prestataire se porte garant du respect de l&rsquo;ensemble des dispositions relatives &agrave; la maitrise des risques li&eacute;s aux syst&egrave;mes d&rsquo;information inclues dans des pr&eacute;sentes CGA&nbsp;par son personnel et par ses &eacute;ventuels sous-traitants et partenaires. &Agrave; cet effet, le Prestataire s&rsquo;engage &agrave; mettre &agrave; la charge de son (ou ses) prestataire(s), partenaires ou sous-traitant(s) toutes obligations n&eacute;cessaires, au moins &eacute;quivalentes &agrave; celles pr&eacute;vues par le pr&eacute;sent article.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505393"></a><a name="_Toc54605442"></a>ARTICLE 11 -&nbsp;responsabilit&eacute;</h1>
-        <p>&nbsp;</p>
         <p>Chacune des Parties sera responsable envers l&rsquo;autre Partie selon les r&egrave;gles du droit commun et indemnisera cette autre partie pour tout dommage direct de quelque nature qu&rsquo;il soit. A ce titre, le Prestataire indemnisera le&nbsp;Client&nbsp;des frais de reconstitution de donn&eacute;es qui r&eacute;sulteraient d'une faute du Prestataire.</p>
-        <p>&nbsp;</p>
         <p>Le Prestataire est responsable de son personnel et de ses sous-traitants et des dommages caus&eacute;s par son personnel et par ses sous-traitants.</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505394"></a>Le pr&eacute;sent article survivra &agrave; la r&eacute;siliation ou &agrave; l&rsquo;expiration du Contrat pour quelque cause que ce soit.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505395"></a><a name="_Toc54605444"></a>ARTICLE 12 -&nbsp;ASSURANCES</h1>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505396"></a>Le Prestataire d&eacute;clare avoir contract&eacute; aupr&egrave;s d&rsquo;une compagnie d&rsquo;assurance notoirement solvable&nbsp;toutes les polices d&rsquo;assurance adapt&eacute;es afin de couvrir l&rsquo;ensemble des risques li&eacute;s &agrave; l&rsquo;exercice de son activit&eacute; et &agrave; l&rsquo;ex&eacute;cution des termes du Contrat vis-&agrave;-vis du Client, notamment&nbsp;les cons&eacute;quences de sa Responsabilit&eacute; Civile Professionnelle et Civile Exploitation.</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505397"></a>Le Prestataire s&rsquo;engage &agrave; conserver ces&nbsp;&nbsp;assurances pendant toute la dur&eacute;e du Contrat et &agrave; informer le Client de toute modification.</p>
         <p><a name="_Toc90505398"></a>Le Prestataire devra justifier au Client de la souscription de ces assurances sur simple demande du Client.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505399"></a><a name="_Toc54605447"></a>ARTICLE 13 -&nbsp;Changement de contr&ocirc;le DU PRESTATAIRE</h1>
-        <p>&nbsp;</p>
         <p>Le Prestataire devra informer le Client de tout changement de contr&ocirc;le dont il ferait l'objet par lettre recommand&eacute;e avec avis de r&eacute;ception exp&eacute;di&eacute;e dans le mois qui suivra ce changement de contr&ocirc;le.</p>
         <p>A compter de la r&eacute;ception de cette lettre par le Client, celui-ci disposera d'un d&eacute;lai de 2 mois pour exp&eacute;dier une lettre recommand&eacute;e avec avis de r&eacute;ception au Prestataire l'informant de son intention de r&eacute;silier le Contrat. La r&eacute;siliation du Contrat prendra effet un (1) mois apr&egrave;s la r&eacute;ception de ladite lettre par le Prestataire.</p>
-        <p>&nbsp;</p>
         <p>Le Contrat &eacute;tant conclu intuitu personae, et dans l&rsquo;hypoth&egrave;se o&ugrave; le Prestataire manquerait &agrave; son obligation d&rsquo;information conform&eacute;ment au pr&eacute;sent article et en cas de changement de contr&ocirc;le av&eacute;r&eacute;, le Client pourra le r&eacute;silier Contrat de plein droit et sans pr&eacute;avis, en adressant une lettre recommand&eacute;e avec accus&eacute; de r&eacute;ception au Prestataire.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505400"></a><a name="_Toc54605448"></a>ARTICLE 14 -&nbsp;Cession<a name="_Toc330548831"></a><a name="_Toc330553773"></a></h1>
-        <p>&nbsp;</p>
         <p>Sauf en cas de cession forc&eacute;e du Contrat intervenant dans le cadre d'une proc&eacute;dure collective dont il ferait l'objet, le Prestataire ne pourra c&eacute;der, transf&eacute;rer ou transmettre &agrave; un tiers, &agrave; quelque titre et par quelque moyen que ce soit, y compris dans le cadre d'une op&eacute;ration entra&icirc;nant la transmission universelle de tout ou partie de son patrimoine, les obligations qui lui incombent en vertu du Contrat sans l'accord &eacute;crit pr&eacute;alable du Client.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505401"></a><a name="_Toc54605449"></a>ARTICLE 15 -&nbsp;Sous-traitance</h1>
-        <p>&nbsp;</p>
         <p>Le Prestataire ne pourra pas sous-traiter tout ou partie des obligations qui lui incombent en vertu du Contrat sans l'accord pr&eacute;alable et &eacute;crit du Client. En cas de sous-traitance autoris&eacute;e, le Prestataire restera seul et unique responsable de la bonne ex&eacute;cution des Prestations. A cet effet, le Prestataire s&rsquo;engage &agrave; mettre &agrave; la charge de son (ou ses) sous-traitant(s) des obligations, au moins &eacute;quivalentes, &agrave; celles auxquelles il est tenu au titre du Contrat et des CGA.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505402"></a><a name="_Toc54605371"></a>ARTICLE 16 -&nbsp;Personnel dU Prestataire</h1>
-        <p>&nbsp;</p>
         <h2><a name="_Toc90505403"></a><a name="_Toc54605372"></a><a name="_Toc476731744"></a>Article 16.01&nbsp;Encadrement</h2>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505404"></a>Le personnel du Prestataire affect&eacute; &agrave; l&rsquo;ex&eacute;cution du Contrat reste sous le contr&ocirc;le administratif et la seule autorit&eacute; hi&eacute;rarchique et disciplinaire du Prestataire pendant toute la dur&eacute;e du Contrat. Le Prestataire assure l&rsquo;encadrement et le contr&ocirc;le de ses salari&eacute;s, y compris lorsque les Prestations sont effectu&eacute;es dans les locaux du Client.</p>
-        <p>&nbsp;</p>
         <h2><a name="_Toc90505405"></a><a name="_Toc54605373"></a><a name="_Toc476731745"></a>Article 16.02&nbsp;Comp&eacute;tence</h2>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505406"></a>Le Prestataire s&rsquo;engage &agrave; pr&eacute;voir des effectifs suffisants avec la comp&eacute;tence requise pour l&rsquo;ex&eacute;cution du Contrat.</p>
         <p><a name="_Toc90505407"></a>Le Prestataire garantit pendant toute la dur&eacute;e du Contrat la stabilit&eacute; de l'&eacute;quipe en charge de son ex&eacute;cution. Elle devra &ecirc;tre qualifi&eacute;e et exp&eacute;riment&eacute;e dans le domaine objet du Contrat.</p>
         <p><a name="_Toc90505408"></a>Le Client se r&eacute;serve, toutefois, le droit de demander le remplacement de tout intervenant dont la comp&eacute;tence serait jug&eacute;e insuffisante ou le comportement inacceptable. Les personnes propos&eacute;es en remplacement devront avoir des qualifications et une exp&eacute;rience jug&eacute;es acceptables par le Client. Si pour des raisons ind&eacute;pendantes de la volont&eacute; du Prestataire, d&ucirc;ment justifi&eacute;es, et accept&eacute;es par le Client, il s&rsquo;av&egrave;re n&eacute;cessaire de remplacer un intervenant, le Prestataire proposera son remplacement par une personne de qualification et d'exp&eacute;rience au moins &eacute;gales et qui doit &ecirc;tre accept&eacute;e par le Client.</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <h2><a name="_Toc90505409"></a><a name="_Toc54605374"></a><a name="_Toc476731746"></a>Article 16.03&nbsp;Hygi&egrave;ne et s&eacute;curit&eacute;</h2>
-        <p>&nbsp;</p>
         <p>Le Prestataire s&rsquo;engage &agrave; faire le n&eacute;cessaire pour que son personnel lorsqu&rsquo;il se trouvera dans les locaux du Client se conforme au r&egrave;glement int&eacute;rieur et aux dispositions applicables aux entreprises ext&eacute;rieures pr&eacute;sentes dans lesdits locaux et notamment celles relatives &agrave; l&rsquo;hygi&egrave;ne et la s&eacute;curit&eacute;.</p>
-        <p>&nbsp;</p>
         <p><a name="_Toc90505410"></a>Le Client de son c&ocirc;t&eacute; s&rsquo;engage &agrave; porter &agrave; la connaissance du Prestataire ces dispositions.</p>
-        <p>&nbsp;</p>
         <p>Dans l'hypoth&egrave;se o&ugrave;, dans le cadre du Contrat et pour les seuls besoins sp&eacute;cifiques li&eacute;s &agrave; la Prestation, le personnel du Prestataire utiliserait le syst&egrave;me d'information du Client, le Prestataire s'engage &agrave; faire le n&eacute;cessaire pour que son personnel s&rsquo;engage &agrave; se conformer aux dispositions en place chez le Client visant &agrave; encadrer l&rsquo;utilisation des moyens de communication &eacute;lectronique (type charte internet) et aux r&egrave;gles de l&rsquo;art relatives &agrave; la protection de l&rsquo;information qui lui seront remises par le Client.</p>
         <h1><a name="_Toc90505411"></a><a name="_Toc54605437"></a><a name="_Toc1024709"></a>ARTICLE 17 -&nbsp;Responsabilit&eacute; soci&eacute;tale et environnementale</h1>
-        <p>&nbsp;</p>
         <p><a name="_Toc1024710"></a><a name="_Toc534823049"></a>Le Client a mis en place des mesures destin&eacute;es &agrave; identifier les risques et &agrave; pr&eacute;venir les atteintes graves envers les droits humains et les libert&eacute;s fondamentales, la sant&eacute; et la s&eacute;curit&eacute; des personnes ainsi que l&rsquo;environnement, r&eacute;sultant de son activit&eacute; et de celles de ses prestataires.</p>
         <p>Dans ce cadre, le Prestataire s&rsquo;engage sur l&rsquo;honneur &agrave; respecter les obligations concernant le respect de ces grands principes vis-&agrave;-vis des droits de l&rsquo;Homme, des conditions de travail, de l&rsquo;environnement et de la lutte contre la corruption.</p>
         <p>Le Client se r&eacute;serve le droit de v&eacute;rifier le respect de ces obligations par le Prestataire par tout moyen, y compris par des audits sur site, le cas &eacute;ch&eacute;ant.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505412"></a><a name="_Toc54605384"></a>ARTICLE 18 -&nbsp;STIPULATIONS RELATIVES &Agrave; LA LUTTE CONTRE LA CORRUPTION&nbsp;</h1>
-        <p>&nbsp;</p>
         <p>Le Prestataire d&eacute;clare que ni lui ni aucune personne agissant sous son contr&ocirc;le (y compris ses administrateurs, dirigeants ou salari&eacute;s, chacun constituant une &laquo;&nbsp;Personne sous son contr&ocirc;le&nbsp;&raquo;) n&rsquo;a, &agrave; sa connaissance, commis, directement ou indirectement, un acte de corruption vis-&agrave;-vis d&rsquo;un tiers ou d&rsquo;un agent public (c&rsquo;est-&agrave;-dire, tout fonctionnaire, salari&eacute;, repr&eacute;sentant ou toute autre personne agissant dans l&rsquo;exercice de ses fonctions officielles pour ou pour le compte d&rsquo;un gouvernement de quelque juridiction que ce soit, d&rsquo;une organisation internationale publique, d'un parti politique, d&rsquo;un organisme quasi-gouvernemental ou d'une entit&eacute; d&eacute;tenue ou contr&ocirc;l&eacute;e par un &Eacute;tat ou par un organisme public ou quasi-gouvernemental). Le terme &laquo;&nbsp;Acte de corruption&nbsp;&raquo; d&eacute;signe la pratique consistant &agrave; solliciter, autoriser, offrir, promettre ou donner un avantage financier ou autre (y compris, sans s&rsquo;y limiter, tout paiement, pr&ecirc;t, cadeau ou don d'un objet de valeur) pour (a) inciter une personne ou un agent public &agrave; agir de mani&egrave;re inopportune ou malhonn&ecirc;te dans l&rsquo;exercice de ses fonctions et/ou (b) obtenir ou conserver de mani&egrave;re indue ou malhonn&ecirc;te un march&eacute; pour le Client.</p>
         <p>Le Prestataire&nbsp;s&rsquo;engage, ainsi que les Personnes sous son contr&ocirc;le&nbsp;:</p>
         <ul>
@@ -327,22 +278,13 @@
         </ul>
         <p>Le Prestataire&nbsp;certifie que ni lui ni l&rsquo;un quelconque de ses mandataires, interm&eacute;diaires ou Personnes sous son contr&ocirc;le n&rsquo;a &eacute;t&eacute; priv&eacute;(e) par une autorit&eacute; gouvernementale ou internationale du droit de r&eacute;pondre &agrave; un appel d&rsquo;offres ou de se voir confier un march&eacute; en raison d&rsquo;un Acte de corruption av&eacute;r&eacute; ou pr&eacute;sum&eacute;.</p>
         <p>Le Prestataire&nbsp;s&rsquo;engage &agrave; signaler au Client toute modification importante de ses politiques et proc&eacute;dures applicables en mati&egrave;re de lutte contre la corruption.</p>
-        <p><strong>&nbsp;</strong></p>
         <p>Si, sur la base d&rsquo;&eacute;l&eacute;ments tels que les informations publiques, entre autres,&nbsp;le Client&nbsp;a des raisons raisonnables de soup&ccedil;onner que le Prestataire a agi de mani&egrave;re incompatible avec les obligations d&eacute;finies &agrave; la pr&eacute;sente clause, ou s&rsquo;il est av&eacute;r&eacute; que le Prestataire a enfreint les obligations qui lui sont d&eacute;volues &agrave; la pr&eacute;sente clause,&nbsp;le Client&nbsp;sera fond&eacute; &agrave; suspendre ou &agrave; r&eacute;silier imm&eacute;diatement l&rsquo;ensemble des Contrats le liant au Prestataire sans aucune indemnit&eacute;.</p>
-        <p><strong>&nbsp;</strong></p>
         <p>Le Prestataire devra indemniser&nbsp;le Client&nbsp;et ses administrateurs, dirigeants, salari&eacute;s, mandataires et entit&eacute;s affili&eacute;es pour toutes les pertes qu&rsquo;ils subiraient dans le cas o&ugrave; elle violerait la pr&eacute;sente clause.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505413"></a><a name="_Toc54605440"></a>ARTICLE 19 -&nbsp;SANCTIONS&nbsp;</h1>
-        <h1>&nbsp;</h1>
         <p>Le Prestataire d&eacute;clare que ni lui, ni aucune de ses soci&eacute;t&eacute;s affili&eacute;es, filiales ou holding, ni, &agrave; sa connaissance, aucun de ses administrateurs, dirigeants et employ&eacute;s, ou l'un de ses agents et interm&eacute;diaires, n'est une personne inscrite sur une liste de sanctions financi&egrave;res internationales (une &laquo;&nbsp;Personne Sanctionn&eacute;e&nbsp;&raquo;).</p>
-        <p>&nbsp;</p>
         <p>Le Prestataire d&eacute;clare et garantit (la d&eacute;claration et la garantie seront r&eacute;put&eacute;es &ecirc;tre r&eacute;p&eacute;t&eacute;es pendant toute la dur&eacute;e du Contrat) qu'il ne conclura aucun arrangement concernant les Prestations avec une Personne Sanctionn&eacute;e.</p>
-        <p>&nbsp;</p>
         <p>Le Prestataire informe le Client, et s'assure que tout agent ou interm&eacute;diaire mandat&eacute; par lui aux fins de l'ex&eacute;cution du Contrat l&rsquo;informe, dans les plus brefs d&eacute;lais apr&egrave;s en avoir pris connaissance, de l&rsquo;existence de toute r&eacute;clamation, action, poursuite, proc&eacute;dure ou enqu&ecirc;te &agrave; son encontre relative &agrave; des sanctions financi&egrave;res internationales.</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <p>Le Client peut r&eacute;silier le Contrat avec effet imm&eacute;diat et sans indemnit&eacute; si le Prestataire, ou, le cas &eacute;ch&eacute;ant, tout agent, est en violation de sanctions financi&egrave;res internationales, d&eacute;clarations ou engagements pr&eacute;vus dans cette clause.</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505414"></a><a name="_Toc54605451"></a>ARTICLE 20 -&nbsp;Communication</h1>
         <p>&nbsp;</p>
         <p><a name="_Toc90505415"></a>Le Client autorise le Prestataire exclusivement pendant la dur&eacute;e du Contrat &agrave; mentionner son nom &agrave; l&rsquo;exclusion de toute autre indication sur une liste de r&eacute;f&eacute;rences qu&rsquo;il pourra diffuser aupr&egrave;s de ses prospects. Toute autre communication sous quelque forme que ce soit et quel qu&rsquo;en soit le motif sera soumise &agrave; l&rsquo;accord pr&eacute;alable &eacute;crit du Client.</p>
@@ -374,10 +316,6 @@
         <p><a name="_Toc90505428"></a>Le Prestataire s&rsquo;engage &agrave; conserver et archiver l&rsquo;ensemble des documents li&eacute;s aux Prestations command&eacute;s par le Client pendant une dur&eacute;e de dix (10) ans suivant la date de chaque commande, de mani&egrave;re &agrave; pouvoir communiquer de tels documents au Client dans les meilleurs d&eacute;lais sur premi&egrave;re demande de ce dernier.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         <h1><a name="_Toc90505429"></a><a name="_Toc54605459"></a><a name="_Toc128301341"></a><a name="_Toc476731784"></a><a name="_Toc468595518"></a>ARTICLE 23 -&nbsp;LOI APPLICABLE, LITIGES ET ATTRIBUTION DE COMPETENCE</h1>
         <p>&nbsp;</p>
         <p><a name="_Toc90505430"></a>Le Contrat est soumis au droit marocain.</p>
@@ -391,16 +329,11 @@
         <p>&nbsp;</p>
         <p>&nbsp;</p>
         <p><strong>Pour le prestataire&nbsp;</strong></p>
-        <p>Nom &amp; Pr&eacute;nom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
-        <p>Titre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
+        <p>Nom &amp; Pr&eacute;nom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:{{ $infoGenerales->nom_representant }}</p>
+        <p>Titre&nbsp;&nbsp;&nbsp;&nbsp;:{{ $infoGenerales->fonction_representant }}</p>
         <p>Signature &amp; Cachet&nbsp;:</p>
         <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>Casablanca le&nbsp;:</p>
-        <p>&nbsp;</p>
+        <p>Casablanca le&nbsp;: {{ $currentDate }}</p>
         <p>&nbsp;</p>
         <p style="font-weight: 400;">&nbsp;</p>
         <p><a href="#_ftnref1" name="_ftn1"><em><strong>[1]</strong></em></a><em>&nbsp;La liste &eacute;tablie par la CNDP est reprise dans la D&eacute;lib&eacute;ration n&deg;236-2015 du 18 D&eacute;cembre 2015 portant modification de la d&eacute;lib&eacute;ration n&deg;465-2013 du 06 Septembre 2013 &eacute;tablissant la liste des Etats assurant une protection suffisante de la vie priv&eacute;e et des libert&eacute;s et droits fondamentaux des personnes &agrave; l&rsquo;&eacute;gard du traitement des donn&eacute;es &agrave; caract&egrave;re personnel.</em></p>

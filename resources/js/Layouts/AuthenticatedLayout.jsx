@@ -1,6 +1,5 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
-import Dropdownx from "@/Components/Dropdownx";
+import S2MLogo from '../../../public/storage/S2M logo.png'; // Adjust the path as necessary
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
 
@@ -11,11 +10,15 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                                </Link>
-                            </div>
+                        <div className="shrink-0 flex items-center">
+        <Link href="/">
+            <img 
+                src={S2MLogo} 
+                alt="S2M Logo" 
+                className="block h-6 w-auto fill-current text-gray-800 dark:text-gray-200" 
+            />
+        </Link>
+    </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
@@ -31,48 +34,13 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                     Fournisseurs
                                 </NavLink>
                                 <NavLink
-                                    href={route("document.index")}
-                                    active={route().current("document.index")}
-                                >
-                                    Documents
-                                </NavLink>
-                                <NavLink
                                     href={route("contract.index")}
                                     active={route().current("contract.index")}
                                 >
-                                    Contrats
+                                    CGA
                                 </NavLink>
                              
-                                <div className="sm:flex sm:items-center ">
-                            <div className="mt-1 relative">
-                                <Dropdownx>
-                                    <Dropdownx.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                <span>Autre</span>
-                                            </button>
-                                        </span>
-                                    </Dropdownx.Trigger>
-
-                                    <Dropdownx.Content>
-                                        <Dropdownx.Link
-                                            href={route("campagnes.index")}
-                                            className=""
-                                        >
-                                            Campagnes des évaluations
-                                        </Dropdownx.Link>
-                                        {/* <Dropdownx.Link
-                                            href={route("campagnes.index")}
-                                        >
-                                            Statistiques des campagnes
-                                        </Dropdownx.Link> */}
-                                    </Dropdownx.Content>
-                                </Dropdownx>
-                            </div>
-                        </div>
+                   
                             </div>
                         </div>
 
@@ -83,30 +51,37 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex  items-center px-3 py-2 border border-transparent text-sm  leading-4 font-thin rounded-md text-black dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {/* Display user image */}
-                                                <img
-                                                    alt="User Profile"
-                                                    src={user.image ? `/storage/${user.image}` : '/default-avatar.png'}
-                                                    className="h-8 w-8 rounded-full object-cover"
-                                                />
+                                                <h1 className=" text-black mt-2">
+                                                Admin
+                                                </h1>
+                                                <div className=" mt-1.5">
+                                                    {" "}
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        className="size-5"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                                                            clipRule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </div>
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
                                             href={route("logout")}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                        Se déconnecter
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

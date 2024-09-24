@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(2)->create();
+        User::factory(1)->create();
         
-        // supplier::factory()->count(10)->create(); // Generates 50 fake fournisseurs
+        // supplier::factory()->count(20)->create(); // Generates 50 fake fournisseurs
         // Contract::create([
         //     'fournisseur_id' => 1,
         //     'date_debut' => '1989-08-28',

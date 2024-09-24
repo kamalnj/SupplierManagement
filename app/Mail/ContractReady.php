@@ -30,7 +30,7 @@ class ContractReady extends Mailable
     public function build()
     {
         return $this->view('emails.contract_ready')
-                    ->subject('Votre contrat est prêt')  // Subject in French
+                    ->subject('Votre contrat est prêt')  
                     ->with([
                         'supplier' => $this->supplier,
                     ]);

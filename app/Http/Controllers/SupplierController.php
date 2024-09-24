@@ -132,9 +132,18 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
+        // Find the associated user and delete
+        $user = User::find($supplier->user_id); // Assuming 'user_id' is a foreign key in the suppliers table
+        if ($user) {
+            $user->delete(); // Delete the user record
+        }
+    
+        // Delete the supplier record
         $supplier->delete();
-
+    
         // Redirect back to the supplier index page with a success message
-        return redirect()->route('supplier.index')->with('success', 'Supplier deleted successfully.');
+        return redirect()->route('supplier.index')->with('success', 'Supplier and corresponding user deleted successfully.');
     }
+    
+
 }

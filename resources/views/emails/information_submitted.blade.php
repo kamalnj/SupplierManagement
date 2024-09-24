@@ -36,11 +36,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nouvelle Soumission d'Informations</h1>
+            <h1>Informations du Fournisseur</h1>
         </div>
         <div class="content">
-            <p>Une nouvelle soumission d'informations a été complétée.</p>
-            <p><strong>Type :</strong> {{ $type }}</p>
+            <p> Les informations ont été complétée.</p>
             <p>Merci de vérifier les informations soumises.</p>
         </div>
      

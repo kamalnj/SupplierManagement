@@ -1,4 +1,4 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
+import S2MLogo from '../../../public/storage/S2M logo.png'; // Adjust the path as necessary
 import Dropdown from "@/Components/Dropdown";
 import Dropdownx from "@/Components/Dropdownx";
 import NavLink from "@/Components/NavLink";
@@ -11,11 +11,15 @@ export default function SupplierLayout({ user, header, children }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                                </Link>
-                            </div>
+                        <div className="shrink-0 flex items-center">
+        <Link href="/">
+            <img 
+                src={S2MLogo} 
+                alt="S2M Logo" 
+                className="block h-6 w-auto fill-current text-gray-800 dark:text-gray-200" 
+            />
+        </Link>
+    </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
@@ -26,7 +30,15 @@ export default function SupplierLayout({ user, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <div className="sm:flex sm:items-center ">
+                                <NavLink
+                                    href={route("supplier.infogénérales.index")}
+                                    active={route().current(
+                                        "supplier.infogénérales.index"
+                                    )}
+                                >
+                                    Mes Informations
+                                </NavLink>
+                                {/* <div className="sm:flex sm:items-center ">
                                     <div className="mt-1 relative">
                                         <Dropdownx>
                                             <Dropdownx.Trigger>
@@ -82,7 +94,7 @@ export default function SupplierLayout({ user, header, children }) {
                                             </Dropdownx.Content>
                                         </Dropdownx>
                                     </div>
-                                </div>
+                                </div> */}
                                 <NavLink
                                     href={route("supplier.contracts.index")}
                                     active={route().current(
@@ -134,7 +146,7 @@ export default function SupplierLayout({ user, header, children }) {
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                        Se déconnecter
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

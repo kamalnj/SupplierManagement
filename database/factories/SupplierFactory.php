@@ -20,12 +20,8 @@ class SupplierFactory extends Factory
     {
         return [
             'nom' => $this->faker->company,
-            'adresse' => $this->faker->address,
-            'contact' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
-            'date_enregistrement' => $this->faker->date,
             'categorie' => $this->faker->randomElement(['Electronics', 'Apparel', 'Automotive', 'Books', 'Furniture', 'Food']),
-            'password' => bcrypt('password'), // You might want to adjust this if passwords are not needed
         ];
     }
 }

@@ -1,16 +1,20 @@
-import React from 'react';
-import { Head, useForm } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';  // Corrected import
-
+import React, { useState } from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia'; 
 import SupplierLayout from '@/Layouts/SupplierLayout.jsx';
 import InfoContactForm from '@/Components/infoContactForm';
-import { InertiaApp } from '@inertiajs/inertia-react';
+import ConfirmationDialog from '@/Components/ConfirmationDialog';
 
 const Index = ({ initialData = {}, supplierName, auth, supplierContacts = [] }) => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         supplierContacts: initialData?.supplierContacts || {},
         supplier_id: supplierName.id || '',
     });
+
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isDialogOpen, setIsDialogOpen] = useState(false); // State for dialog visibility
+    const [contactToDelete, setContactToDelete] = useState(null); // State to track contact to be deleted
 
     const handleFormChange = (section, name, value) => {
         setData(section, {
@@ -23,34 +27,65 @@ const Index = ({ initialData = {}, supplierName, auth, supplierContacts = [] }) 
         e.preventDefault();
         post(route('supplier.infocontact.upload'), {
             onSuccess: () => {
-                console.log("Data uploaded successfully");
+                setSuccessMessage('Données téléchargées avec succès');
+                setErrorMessage(''); 
+                reset(); 
             },
             onError: (errors) => {
+                setErrorMessage('Une erreur est survenue lors du téléchargement des données');
+                setSuccessMessage(''); 
                 console.error(errors);
             },
         });
     };
 
-    const handleDelete = (id) => {
-        if (confirm('Êtes-vous sûr de vouloir supprimer ce contact?')) {
-            Inertia.delete(route('supplier.infocontact.destroy', id), {
+    const openDeleteDialog = (contact) => {
+        setContactToDelete(contact); // Set the contact to be deleted
+        setIsDialogOpen(true); // Open the dialog
+    };
+
+    const handleDelete = () => {
+        if (contactToDelete) {
+            Inertia.delete(route('supplier.infocontact.destroy', contactToDelete.id), {
                 onSuccess: () => {
-                    console.log("Contact supprimé avec succès");
+                    setSuccessMessage('Contact supprimé avec succès');
+                    setErrorMessage('');
+                    setIsDialogOpen(false); // Close dialog after deletion
                 },
                 onError: (errors) => {
+                    setErrorMessage('Une erreur est survenue lors de la suppression du contact');
+                    setSuccessMessage('');
+                    setIsDialogOpen(false); // Close dialog even on error
                     console.error(errors);
                 },
             });
         }
     };
-    
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false); // Close the dialog without deleting
+        setContactToDelete(null); // Clear the contact to be deleted
+    };
+
     return (
         <SupplierLayout user={auth.user}>
-            <Head title="Mes Contacts" />
+            <Head title="Mes Informations" />
 
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
                     <h2 className="text-lg font-semibold text-gray-800 mb-4">Ajouter Contact</h2>
+
+                    {successMessage && (
+                        <div className="my-4 text-green-600 text-center">
+                            {successMessage}
+                        </div>
+                    )}
+
+                    {errorMessage && (
+                        <div className="my-4 text-red-600 text-center">
+                            {errorMessage}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <InfoContactForm
@@ -58,12 +93,17 @@ const Index = ({ initialData = {}, supplierName, auth, supplierContacts = [] }) 
                             onChange={(name, value) => handleFormChange('supplierContacts', name, value)}
                         />
                         <div className="flex justify-center">
+                        <Link
+                        className="bg-blue-600 w-28 mr-6 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        href={route("supplier.infofinancelegale.index")}
+                    >
+                        Précédent
+                    </Link>
                             <button
                                 type="submit"
-                                className="w-full max-w-xs bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300"
-                                disabled={processing}
+                                className="  bg-blue-600 w-28 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                {processing ? 'Enregistrement...' : 'Enregistrer'}
+                                Suivant
                             </button>
                         </div>
                     </form>
@@ -83,7 +123,7 @@ const Index = ({ initialData = {}, supplierName, auth, supplierContacts = [] }) 
                                         <p className="text-gray-700"><strong>Email:</strong> {contact.email}</p>
                                     </div>
                                     <button
-                                        onClick={() => handleDelete(contact.id)}
+                                        onClick={() => openDeleteDialog(contact)} // Open the dialog
                                         className="bg-red-600 text-white py-1 px-3 rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
                                     >
                                         Supprimer
@@ -96,6 +136,15 @@ const Index = ({ initialData = {}, supplierName, auth, supplierContacts = [] }) 
                     )}
                 </div>
             </div>
+
+            {/* Confirmation Dialog for Deletion */}
+            <ConfirmationDialog
+                isOpen={isDialogOpen}
+                onClose={handleCloseDialog}
+                onConfirm={handleDelete}
+                title="Confirmer la suppression"
+                description={`Êtes-vous sûr de vouloir supprimer ${contactToDelete?.nom_prenom}?`}
+            />
         </SupplierLayout>
     );
 };

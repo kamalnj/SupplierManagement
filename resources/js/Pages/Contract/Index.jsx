@@ -1,116 +1,80 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import ConfirmationDialog from "@/Components/ConfirmationDialog";
-import ContractModal from "@/Components/ContractModal"; 
-import { useState } from "react";
+import { Head } from "@inertiajs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons"; 
+import Pagination from "@/Components/Pagination";
+import { useState, useEffect } from "react"; 
 
 const Index = ({ auth, contracts }) => {
-    const [isDialogOpen, setDialogOpen] = useState(false);
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [modalMode, setModalMode] = useState("view");
-    const [selectedContract, setSelectedContract] = useState(null);
-    const [contractIdToDelete, setContractIdToDelete] = useState(null);
-    const { delete: deleteContract } = useForm();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredContracts, setFilteredContracts] = useState(contracts.data);
 
-    const openDialog = (contractId) => {
-        setContractIdToDelete(contractId);
-        setDialogOpen(true);
-    };
-
-    const closeDialog = () => {
-        setDialogOpen(false);
-        setContractIdToDelete(null);
-    };
-
-    const handleConfirmDelete = () => {
-        if (contractIdToDelete) {
-            deleteContract(route('contract.destroy', contractIdToDelete), {
-                onSuccess: () => closeDialog(),
-                onError: () => closeDialog()
-            });
+    useEffect(() => {
+        if (searchTerm) {
+            const filtered = contracts.data.filter(contract =>
+                contract.nom_fournisseur.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredContracts(filtered);
+        } else {
+            setFilteredContracts(contracts.data);
         }
-    };
-
-    const openModal = (contract, mode) => {
-        setSelectedContract(contract);
-        setModalMode(mode);
-        setModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalOpen(false);
-        setSelectedContract(null);
-    };
+    }, [searchTerm, contracts.data]);
 
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Liste des contrats
+                    <h2 className="font-semibold text-3xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Liste des CGAs
                     </h2>
                 </div>
             }
         >
             <Head title="Liste des contrats" />
-            
-            <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+
+            <section className="bg-gray-100 dark:bg-gray-900 p-6 antialiased">
                 <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
-                    <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+                    <form className="mb-4 flex items-center space-x-2">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Rechercher par nom de fournisseur..."
+                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring focus:ring-green-500 transition duration-300"
+                        />
+                    </form>
+                    <div className="relative bg-white dark:bg-gray-800 shadow-lg sm:rounded-lg p-6">
                         <div className="overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-fixed">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="px-4 py-3">Nom de l'entreprise</th>
                                         <th scope="col" className="px-4 py-3">Nom du fournisseur</th>
-                                        <th scope="col" className="px-4 py-3">Date de début</th>
-                                        <th scope="col" className="px-4 py-3">Date de fin</th>
-                                        <th scope="col" className="px-4 py-3">Statut</th>
-                                        <th scope="col" className="px-4 py-3">
-                                            <span className="sr-only">Actions</span>
-                                        </th>
+                                        <th scope="col" className="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {contracts.data.map(contract => (
+                                    {filteredContracts.map((contract, index) => (
                                         <tr
                                             key={contract.id}
-                                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                            className={`bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition duration-300`}
                                         >
-                                            <th
-                                                scope="row"
-                                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                            >
-                                                {contract.nom_entreprise}
-                                            </th>
-                                            <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                                            <td className="px-4 py-3 text-gray-900 dark:text-white">
                                                 {contract.nom_fournisseur}
                                             </td>
-                                            <td className="px-6 py-4">{contract.date_debut}</td>
-                                            <td className="px-6 py-4">{contract.date_fin}</td>
-                                            <td className="px-6 py-4">{contract.statut}</td>
-                                            <td className="px-6 py-4 my-2 flex items-center justify-end space-x-3">
+                                            <td className="px-4 py-3 flex items-center justify-start space-x-3">
                                                 <button
                                                     type="button"
-                                                    className="font-medium text-green-600 dark:text-blue-500 hover:underline"
-                                                    onClick={() => window.location.href = `/contracts/${contract.id}/download`}
-                                                    >
-                                                    Voir
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                    onClick={() => openModal(contract, 'edit')}
+                                                    className="flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition duration-300"
+                                                    onClick={() =>
+                                                        window.open(
+                                                            `/contracts/view/contrat_${contract.nom_fournisseur}.pdf`,
+                                                            "_blank"
+                                                        )
+                                                    }
                                                 >
-                                                    Modifier
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                    onClick={() => openDialog(contract.id)}
-                                                >
-                                                    Supprimer
+                                                    <FontAwesomeIcon icon={faEye} className="mr-2" />
+                                                    Voir CGA
                                                 </button>
                                             </td>
                                         </tr>
@@ -121,22 +85,7 @@ const Index = ({ auth, contracts }) => {
                     </div>
                 </div>
             </section>
-
-            <ConfirmationDialog
-                isOpen={isDialogOpen}
-                onClose={closeDialog}
-                title="Supprimer Contrat"
-                description="Êtes-vous sûr de vouloir supprimer ce contrat ? Cette action est irréversible."
-                confirmText="Supprimer"
-                cancelText="Annuler"
-                onConfirm={handleConfirmDelete}
-            />
-            <ContractModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                contract={selectedContract}
-                mode={modalMode}
-            />
+            <Pagination links={contracts.meta.links} />
         </AuthenticatedLayout>
     );
 };

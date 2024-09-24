@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
-use App\Http\Requests\UpdateDocumentRequest;
-use App\Mail\DocumentUploaded;
 use App\Models\Documents_name;
 use App\Models\NameDoc;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,55 +14,48 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Notifications\DocumentUploaded;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
+
+
 
 class DocumentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Fetch suppliers with their associated documents and document names
-        $suppliers = Supplier::with('documents.documentName')->get();
-
-        // Fetch all document names, indexed by their ID
-        $documentNames = Documents_name::all()->keyBy('id');
-
-        // Fetch documents with their associated document names
-        $documents = Document::with('documentName')->get();
-
-        return Inertia::render('Documents/Index', [
-            'suppliers' => $suppliers,
-            'documentNames' => $documentNames,
-            'documents' => $documents
-        ]);
-    }
-
-
     public function Documentsindex()
     {
         $user = Auth::user();
         $supplier = $user->supplier;
-
+    
         $documentNames = Documents_name::all();
-        $uploadedDocuments = Document::where('fournisseur_id', $supplier->id)->get()->keyBy('document_name_id');
-
-
+        $uploadedDocuments = Document::where('fournisseur_id', $supplier->id)->get()->keyBy('id_nom_document');
+    
         $documents = $documentNames->map(function ($documentName) use ($uploadedDocuments) {
+            $uploadedDocument = $uploadedDocuments->get($documentName->id);
+    
             return [
                 'id' => $documentName->id,
                 'name' => $documentName->nom,
-                'path' => $uploadedDocuments->get($documentName->id)->path ?? null,
+                'path' => $uploadedDocument->fichier ?? null,
+                'isUploaded' => $uploadedDocument ? $uploadedDocument->is_uploaded : false,
             ];
         });
-
+    
         return Inertia::render('Fournisseur/Document/Index', [
             'supplier' => $supplier,
             'documents' => $documents,
         ]);
     }
-
-
+    
+    
+    
+    private function getAdmin()
+{
+    return User::where('usertype', 'admin')->get();
+}
 
 
     public function upload(Request $request)
@@ -153,16 +145,24 @@ class DocumentController extends Controller
         chmod($filePath, 0644); // Allow read/write for owner, and read-only for others
 
         // Save the document information in the database
-        Document::create([
+        $document = Document::create([
             'fournisseur_id' => $supplier->id,
             'id_nom_document' => $documentName->id,
             'fichier' => "{$supplierFolderName}/{$fileName}",
             'date_telechargement' => now(),
+            'is_uploaded' => true, // Set to true here
+
         ]);
 
-        Mail::to('admin@example.com')->send(new DocumentUploaded($documentName->nom, $supplier->nom));
+        DB::table('documents')
+        ->where('id', $document->id)
+        ->update(['is_uploaded' => true]);
 
-    
+        $admin = $this->getAdmin();
+
+        Notification::send($admin, new DocumentUploaded($documentName->nom, $supplier->nom));
+
+
         // Redirect back with a success message
         $documentNames = Documents_name::all();
         $uploadedDocuments = Document::where('fournisseur_id', $supplier->id)->get()->keyBy('id_nom_document');

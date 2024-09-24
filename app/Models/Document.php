@@ -10,7 +10,7 @@ class Document extends Model
     use HasFactory;
     
 
-    protected $fillable = ['fournisseur_id', 'id_nom_document', 'fichier', 'date_telechargement'];
+    protected $fillable = ['fournisseur_id', 'id_nom_document', 'fichier', 'date_telechargement','uploaded'];
 
     public function supplier()
     {
